@@ -1,0 +1,17 @@
+<!doctype html>
+{% comment %} This is the basic structure that most other pages inherit {% endcomment %}
+<html>
+<head>
+    <title>TCGPlayer Store</title>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    {% block content %}
+        This is quality content
+    {% endblock %}
+
+    {% block more_content %}
+        Long live the Queen!
+    {% endblock %}
+</body>
+</html>
