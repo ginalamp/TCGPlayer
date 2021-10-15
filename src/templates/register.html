@@ -1,0 +1,20 @@
+<title>Register</title>
+<h3>Register</h3>
+
+<form method = "POST" action="">
+{% csrf_token %}
+    {%comment%}username field{%endcomment%}
+    {{form.username.label}}
+    {{form.username}} {%comment%} provides a cleaner form without all the text from the standard django form {%endcomment%}    {{field}}
+    {%comment%}username field{%endcomment%}
+    {{form.email.label}}
+    {{form.email}}
+    {%comment%}username field{%endcomment%}
+    {{form.password1.label}}
+    {{form.password1}}
+    {%comment%}username field{%endcomment%}
+    {{form.password2.label}}
+    {{form.password2}}
+
+    <input type="submit" name="Create User">
+</form>

@@ -6,4 +6,6 @@ app_name = 'pages'
 urlpatterns = [
     path('', views.home_view),
     path('home/', views.home_view),
+    path('login/', views.login_view),
+    path('register/', views.register_view)
 ]
