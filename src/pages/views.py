@@ -3,15 +3,15 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 
-#import user creation form that I customised from the django standard UserCreationForm
-#customised to add an email field and phone number field - since a seller must provide contact info
+# Import user creation form that I customised from the django standard UserCreationForm
+# Customised to add an email field and phone number field - since a seller must provide contact info
 from .forms import CreateUserForm
 
 # home page
 def home_view(request, *args, **kwargs):
     return render(request, "home.html", {})
 
-#register page
+# register page
 def register_view(request, *args, **kwargs):
     form = CreateUserForm()
     
@@ -23,7 +23,7 @@ def register_view(request, *args, **kwargs):
     context = {'form':form}
     return render(request, "register.html", context)
 
-#login page
+# login page
 def login_view(request, *args, **kwargs):
     return render(request, "login.html", {})
 
