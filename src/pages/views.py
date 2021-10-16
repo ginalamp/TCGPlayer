@@ -1,5 +1,5 @@
 # Renders the general html templates
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 
@@ -8,23 +8,25 @@ from django.contrib.auth.forms import UserCreationForm
 from .forms import CreateUserForm
 
 # home page
-def home_view(request, *args, **kwargs):
+def home_view(request):
     return render(request, "home.html", {})
 
 # register page
-def register_view(request, *args, **kwargs):
+def register_view(request):
     form = CreateUserForm()
     
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         if form.is_valid():
             form.save()
+            return redirect('login')
     
     context = {'form':form}
-    return render(request, "register.html", context)
+    return render(request, 'register.html', context)
 
 # login page
-def login_view(request, *args, **kwargs):
-    return render(request, "login.html", {})
+def login_view(request):
+    context = {}
+    return render(request, 'login.html', context)
 
 
