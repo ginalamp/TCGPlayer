@@ -110,15 +110,14 @@
 				   		</div>
 					</form>
 				</div>
+                
                 {{form.errors}} {%comment%} the errors are not displaying nicely, will work on that later {%endcomment%}
-				<div class="mt-4">
-                {%comment%}
-                same issue with connecting to login page
-					<div class="d-flex justify-content-center links">
-						Already have an account? <a href="{% url 'login' %}" 
-                        class="ml-2">Login</a>
+				
+                
+                <div class="mt-4">
+                    <div class="d-flex justify-content-center links">
+						Already have an account? <a href="/login" >Login</a>
 					</div>
-                    {%endcomment%}
 				</div>
 			</div>
 		</div>
