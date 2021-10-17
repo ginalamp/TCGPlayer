@@ -6,6 +6,8 @@ price_kwargs = dict(
 
 # Card based on some of Scryfall's MTG card fields
 class Card(models.Model):
+    # e.g. '0000579f-7b35-4ed3-b44c-db2a538066fe'
+    id = models.CharField(default='', max_length=36)
     name = models.CharField(default='', max_length=256)
     # this card's set
     cardset = models.ForeignKey('CardSet', null=True, default=None,
@@ -21,4 +23,34 @@ class Card(models.Model):
     eur = models.DecimalField(**price_kwargs)
     eur_foil = models.DecimalField(**price_kwargs)
     tix = models.DecimalField(**price_kwargs)
+
+    released_at = models.DateField(blank=True, null=True)
+    # used for getting image e.g. '1562894979'
+    img_id = models.CharField(default='', max_length=10)
+
+    # e.g. '{X}{W} // {2}{R} // {2}{U} // {3}{B} // {1}{G}', '{5}{R}'
+    mana_cost = models.CharField(default='', max_length=46)
+    # e.g. 6.0, max: 1000000.0
+    cmc = models.DecimalField(default=0, decimal_places=1, max_digits=8,
+                              blank=True, null=True)
+    # e.g. 'Creature — Siren Pirate'
+    type_line = models.CharField(default='', max_length=80)
+    # ability of the card. max len is 769
+    oracle_text = models.CharField(default='', max_length=800)
+    
+    # e.g. '3', '', '*', '-1', '1+*', '?', '.5'
+    power = models.CharField(default='', max_length=3)
+    toughness = models.CharField(default='', max_length=3)
+    # e.g. "['B', 'R']", max len: "['B', 'G', 'R', 'U', 'W']"
+    colors = models.CharField(default='', max_length=25)
+    # e.g. ['Landwalk', 'Flanking', 'Fading'], maxlen: 124
+    keywords = models.CharField(default='', max_length=128)
+
+    # adds character to the card, usually a moto or a tagline. max: 448
+    flavor_text = models.CharField(default='', max_length=500)
+    # whether or not this card was part of a booster or not
+    booster = models.BooleanField(default=False)
+    # some rank (not always available)
+    edhrec_rank = models.DecimalField(default=0, decimal_places=1, max_digits=8,
+                                      blank=True, null=True)
 
