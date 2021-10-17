@@ -1,4 +1,9 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+# TODO: update which fields need to be mandatory, etc
 
 price_kwargs = dict(
     default=0.0, decimal_places=2, max_digits=6,
@@ -68,3 +73,46 @@ class CardSet(models.Model):
     set_name = models.CharField(default='', max_length=256)
     # e.g. expansion, core, token
     set_type = models.CharField(default='', max_length=256)
+
+
+class CardListing(models.Model):
+    '''
+    Represents a user selling a card
+    '''
+    # the card that this listing is for
+    card = models.ForeignKey('Card', null=True, default=None,
+                             on_delete=models.CASCADE)
+    # the user that is selling the card(s)
+    seller = models.ForeignKey('Profile', related_name='seller',
+                               on_delete=models.CASCADE)
+    # the price of the card
+    price = models.DecimalField(default=0, decimal_places=2, max_digits=6)
+    # the listed quantity of the card being listed
+    quantity = models.IntegerField(default=0)
+    # the buyer (if null, the card(s) has not been bought yet)
+    buyer = models.ForeignKey('Profile', related_name='buyer', blank=True,
+                              on_delete=models.CASCADE)
+
+#######################################################
+# USERS
+#######################################################
+
+class Profile(models.Model):
+    '''
+    User profile: extension of django.contrib.auth.model.User
+    '''
+    # the user this profile is for
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    # the user's username
+    username = models.TextField(default='')
+
+# if the user is created, a profile is created as well
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+# when the user is saved, their profile is saved as well
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
