@@ -5,6 +5,7 @@ from django.dispatch import receiver
 
 # TODO: update which fields need to be mandatory, etc
 
+# format price Decimal Fields
 price_kwargs = dict(
     default=0.0, decimal_places=2, max_digits=6,
     blank=True, null=True)
@@ -61,6 +62,10 @@ class Card(models.Model):
     edhrec_rank = models.DecimalField(default=0, decimal_places=1, max_digits=8,
                                       blank=True, null=True)
 
+    # string representation of self
+    def __str__(self):
+        return self.name
+
 class CardSet(models.Model):
     '''
     Cards can be part of a card set
@@ -73,6 +78,10 @@ class CardSet(models.Model):
     set_name = models.CharField(default='', max_length=256)
     # e.g. expansion, core, token
     set_type = models.CharField(default='', max_length=256)
+    
+    # string representation of self
+    def __str__(self):
+        return self.set_name
 
 
 class CardListing(models.Model):
@@ -105,6 +114,10 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     # the user's username
     username = models.TextField(default='')
+    
+    # string representaion of self
+    def __str__(self):
+        return self.username
 
 # if the user is created, a profile is created as well
 @receiver(post_save, sender=User)
