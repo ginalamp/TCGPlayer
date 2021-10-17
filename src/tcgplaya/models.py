@@ -4,8 +4,10 @@ price_kwargs = dict(
     default=0.0, decimal_places=2, max_digits=6,
     blank=True, null=True)
 
-# Card based on some of Scryfall's MTG card fields
 class Card(models.Model):
+    '''
+    Card based on some of Scryfall's MTG card fields.
+    '''
     # e.g. '0000579f-7b35-4ed3-b44c-db2a538066fe'
     card_id = models.CharField(default='', max_length=36)
     name = models.CharField(default='', max_length=256)
@@ -54,3 +56,15 @@ class Card(models.Model):
     edhrec_rank = models.DecimalField(default=0, decimal_places=1, max_digits=8,
                                       blank=True, null=True)
 
+class CardSet(models.Model):
+    '''
+    Cards can be part of a card set
+    '''
+    # e.g. 'c1d109bc-ffd8-428f-8d7d-3f8d7e648046'
+    set_id = models.CharField(default='', max_length=256)
+    # e.g. 'tsp'
+    set_codename = models.CharField(default='', max_length=256)
+    # e.g. 'Time Spiral'
+    set_name = models.CharField(default='', max_length=256)
+    # e.g. expansion, core, token
+    set_type = models.CharField(default='', max_length=256)
