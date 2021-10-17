@@ -7,7 +7,7 @@ price_kwargs = dict(
 # Card based on some of Scryfall's MTG card fields
 class Card(models.Model):
     # e.g. '0000579f-7b35-4ed3-b44c-db2a538066fe'
-    id = models.CharField(default='', max_length=36)
+    card_id = models.CharField(default='', max_length=36)
     name = models.CharField(default='', max_length=256)
     # this card's set
     cardset = models.ForeignKey('CardSet', null=True, default=None,
