@@ -4,6 +4,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 # TODO: update which fields need to be mandatory, etc
+# TODO: manytomany Cart - profile can have many cards, and a card can be part of many profiles (get buyer best price - cheapest price for user by querying all cardlistings for that card)
 
 # format price Decimal Fields
 price_kwargs = dict(
