@@ -18,8 +18,23 @@ def jprint(obj):
    print(text)
 
 def parse_bulk_data(filename):
+    # load bulk data
     with open(filename, 'r') as f:
         bulkdata = json.load(f)
 
+    # convert json file to dataframe
     df = pd.DataFrame(bulkdata)
-    print(df)
+
+    # keep only specific columns
+    keep = [
+        'id', 'name', 'released_at',
+        'image_uris',
+        'mana_cost', 'cmc', 'type_line', 'oracle_text', 'power', 'toughness', 'colors', 'keywords',
+        'set_id', 'set', 'set_name', 'set_type',
+        'rarity', 'flavor_text', 'booster', 'edhrec_rank',
+        'prices',
+    ]
+
+    # rename columns to match model
+    og_df = df[keep].rename(columns={'id': 'card_id', 'set': 'set_codename'})
+    print(og_df)
