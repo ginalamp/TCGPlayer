@@ -1,3 +1,6 @@
+# Added: remove bulk data json (too big for github)
+all-cards-20211014091110-sample.json
+
 # Added: mac
 *.DS_Store
 
