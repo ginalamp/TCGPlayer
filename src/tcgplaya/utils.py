@@ -37,4 +37,33 @@ def parse_bulk_data(filename):
 
     # rename columns to match model
     og_df = df[keep].rename(columns={'id': 'card_id', 'set': 'set_codename'})
-    print(og_df)
+    
+    # clean dataframe
+    df = clean_bulk_df(og_df)
+    print(df)
+
+
+
+def clean_bulk_df(og_df):
+    '''
+    Return cleaned dataframe
+    @param og_df pre-cleaned dataframe created from Scryfall bulk_data json file
+    '''
+    # stringify everything
+    df = og_df.astype(str)
+    # replace nan colors
+    df.colors[df.colors == 'nan'] = '[]'
+    # set all power/toughness/flavor_text 'nan' to ''
+    df.power[df.power == 'nan'] = ''
+    df.toughness[df.toughness == 'nan'] = ''
+    df.flavor_text[df.flavor_text == 'nan'] = ''
+    df.edhrec_rank[df.edhrec_rank == 'nan'] = '-1'
+    df.edhrec_rank = df.edhrec_rank.astype(float)
+    # collect image uris
+    df.image_uris = og_df.image_uris.where(pd.notnull(og_df.image_uris), {})
+    # collect prices
+    df.prices = og_df.prices.where(pd.notnull(og_df.prices), {})
+    # convert released_at to timestamp
+    df.released_at = pd.to_datetime(df.released_at)
+
+    return df
