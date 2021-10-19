@@ -41,11 +41,16 @@
                 <h2>Cardlistings</h2>
             </div>
             <div class="row">
+                {% if listings %}
                 <ul>
-                {% for listing in listings %}
-                    <li><a href='/cards/cardlisting/{{ listing.id }}'>{{ listing.card.name }} @ {{ listing.price }} by {{ listing.seller.user }} ({{ listing.seller.user.email }})</a>
-                {% endfor %}
+                    {% for listing in listings %}
+                        <li><a href='/cards/cardlisting/{{ listing.id }}'>{{ listing.card.name }} @ {{ listing.price }} by {{ listing.seller.user }} ({{ listing.seller.user.email }})</a>
+                    {% endfor %}
                 </ul>
+                {% else %}
+                    <p>No cardlistings available for this card.</p>
+                {% endif %}
+                
             </div>
         </div>
     </div>
