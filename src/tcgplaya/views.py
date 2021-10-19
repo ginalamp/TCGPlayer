@@ -18,6 +18,7 @@ def card_view(request, id):
     context = {}
     card = Card.objects.get(id=id)
     listings = CardListing.objects.filter(card=card)
+    listings = listings.order_by('price')
 
     context = dict(
         card = card,
