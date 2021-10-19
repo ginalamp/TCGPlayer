@@ -8,11 +8,12 @@ from django.contrib.auth.forms import UserCreationForm
 from .forms import CreateUserForm
 
 # home page
-def home_view(request):
-    return render(request, "home.html", {})
+def home_view(request, *args, **kwargs):
+    context = {}
+    return render(request, 'home.html', context)
 
 # register page
-def register_view(request):
+def register_view(request, *args, **kwargs):
     form = CreateUserForm()
     
     if request.method == 'POST':
@@ -25,6 +26,16 @@ def register_view(request):
     return render(request, 'register.html', context)
 
 # login page
-def login_view(request):
+def login_view(request, *args, **kwargs):
     context = {}
     return render(request, 'login.html', context)
+
+# cart page
+def cart_view(request, *args, **kwargs):
+    context = {}
+    return render(request, 'cart.html', context)
+
+# profile
+def profile_view(request, *args, **kwargs):
+    context = {}
+    return render(request, 'profile.html', context)
