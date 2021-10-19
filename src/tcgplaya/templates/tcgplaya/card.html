@@ -24,12 +24,16 @@
             <div class="row">
                 {% comment %} col 2 description row {% endcomment %}
                 <div class="row">
+                {% if card.flavor_text %}
                     <div class="col-2">
                         Description:
                     </div>
                     <div class="col-4">
                         {{ card.flavor_text }}...
                     </div>
+                {% else %}
+                    <div>No flavour text available for this card.</div>
+                {% endif %}
                 </div>
 
             </div>
@@ -41,10 +45,16 @@
                 <h2>Cardlistings</h2>
             </div>
             <div class="row">
+                {% if listings %}
                 <ul>
-                    <li>Listing 1</li>
-                    <li>Listing 2</li>
+                    {% for listing in listings %}
+                        <li><a href='/cards/cardlisting/{{ listing.id }}'>{{ listing.card.name }} @ {{ listing.price }} by {{ listing.seller.user }} ({{ listing.seller.user.email }})</a>
+                    {% endfor %}
                 </ul>
+                {% else %}
+                    <p>No cardlistings available for this card.</p>
+                {% endif %}
+                
             </div>
         </div>
     </div>
