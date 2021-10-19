@@ -19,7 +19,18 @@ def card_view(request, id):
     card = Card.objects.get(id=id)
 
     context = dict(
-        name=card.name,
-        id=card.id,
+        card = card
+
+        # name=card.name,
+        # id=card.id,
+        # rarity=card.rarity,
+        # card_set=card.cardset,
+        # suggested_price=card.usd,
+        # card_image=card.img_id,
+        # mana_cost=card.mana_cost,
+        # power=card.power,
+        # toughness=card.toughness,
+        # description=card.flavor_text,
+        # popularity=card.edhrec_rank
     )
     return render(request, 'tcgplaya/card.html', context)
