@@ -43,7 +43,7 @@
             <div class="row">
                 <ul>
                 {% for listing in listings %}
-                    <li>{{ listing }}
+                    <li><a href='/cards/cardlisting/{{ listing.id }}'>{{ listing.card.name }} @ {{ listing.price }} by {{ listing.seller.user }} ({{ listing.seller.user.email }})</a>
                 {% endfor %}
                 </ul>
             </div>
