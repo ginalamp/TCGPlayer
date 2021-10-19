@@ -17,21 +17,11 @@ def home_view(request):
 def card_view(request, id):
     context = {}
     card = Card.objects.get(id=id)
+    listings = CardListing.objects.filter(card=card)
 
     context = dict(
-        card = card
-
-        # name=card.name,
-        # id=card.id,
-        # rarity=card.rarity,
-        # card_set=card.cardset,
-        # suggested_price=card.usd,
-        # card_image=card.img_id,
-        # mana_cost=card.mana_cost,
-        # power=card.power,
-        # toughness=card.toughness,
-        # description=card.flavor_text,
-        # popularity=card.edhrec_rank
+        card = card,
+        listings=listings
     )
     return render(request, 'tcgplaya/card.html', context)
 

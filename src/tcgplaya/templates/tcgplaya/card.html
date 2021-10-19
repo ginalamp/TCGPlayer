@@ -42,8 +42,9 @@
             </div>
             <div class="row">
                 <ul>
-                    <li>Listing 1</li>
-                    <li>Listing 2</li>
+                {% for listing in listings %}
+                    <li>{{ listing }}
+                {% endfor %}
                 </ul>
             </div>
         </div>
