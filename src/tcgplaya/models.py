@@ -34,8 +34,9 @@ class Card(models.Model):
     tix = models.DecimalField(**price_kwargs)
 
     released_at = models.DateField(blank=True, null=True)
-    # used for getting image e.g. '1562894979'
-    img_id = models.CharField(default='', max_length=10)
+
+    # used for getting image url e.g. https://c1.scryfall.com/file/scryfall-cards/normal/front/b/e/be72ff91-f810-46c3-884f-6e65827824bc.jpg?1598917660
+    img_uri = models.CharField(default='', max_length=100)
 
     # e.g. '{X}{W} // {2}{R} // {2}{U} // {3}{B} // {1}{G}', '{5}{R}'
     mana_cost = models.CharField(default='', max_length=46)

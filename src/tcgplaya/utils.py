@@ -70,7 +70,7 @@ def parse_bulk_data(filename):
     set_id2cardset = {}
     cardsets = []
     pbar = tqdm(total=len(df))
-    for index, row in df.iterrows():
+    for _, row in df.iterrows():
         # create the cardset obj
         set_kwargs = dict(row[direct_copy_keys_set])
         set_id = set_kwargs['set_id']
@@ -80,14 +80,11 @@ def parse_bulk_data(filename):
             set_id2cardset[set_id] = cardset
         cardsets.append(cardset)
 
-        # get the image id
-        img_uri = row.image_uris.get('small')
+        # get the image uri
+        img_uri = row.image_uris.get('normal')
         if img_uri is None:
-            img_id = ''
-        else:
-            index = img_uri.rfind('?')
-            img_id = img_uri[index+1:]
-        # set released_at as understandable by Django's DateField
+            # set uri to default mtg back of card picture
+            img_uri = 'https://i.redd.it/qnnotlcehu731.jpg'
         released_at = row.released_at.date()
         # process the card prices
         prices = dict(row.prices)
@@ -95,7 +92,7 @@ def parse_bulk_data(filename):
         kwargs = dict(row[direct_copy_keys])
         # construct the card
         card = Card(
-            img_id=img_id,
+            img_uri=img_uri,
             released_at=released_at,
             **prices,
             **kwargs,
