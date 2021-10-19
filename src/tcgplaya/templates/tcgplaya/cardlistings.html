@@ -6,7 +6,7 @@
 
 <ul>
 {% for listing in listings %}
-    <li>Listing: {{ listing }}
+    <li>{{ listing.card.name }} @ {{ listing.price }} by {{ listing.seller.user }} ({{ listing.seller.user.email }})
 {% endfor %}
 </ul>
 {% endblock %}
