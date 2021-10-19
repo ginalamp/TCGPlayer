@@ -24,12 +24,16 @@
             <div class="row">
                 {% comment %} col 2 description row {% endcomment %}
                 <div class="row">
+                {% if card.flavor_text %}
                     <div class="col-2">
                         Description:
                     </div>
                     <div class="col-4">
                         {{ card.flavor_text }}...
                     </div>
+                {% else %}
+                    <div>No flavour text available for this card.</div>
+                {% endif %}
                 </div>
 
             </div>
