@@ -35,3 +35,15 @@ def cardlistings_view(request):
     # context['listings'] = listings
 
     return render(request, 'tcgplaya/cardlistings.html', context)
+
+# a single cardlisting for a card
+def cardlisting_view(request, id):
+    context = {}
+    listing = CardListing.objects.get(id=id)
+    # values = listings.values('id', 'name')
+    context = dict(
+        listing=listing
+    )
+    # context['listings'] = listings
+
+    return render(request, 'tcgplaya/cardlisting.html', context)

@@ -2,5 +2,15 @@
 {% comment %} This is a single view of a card that is for sale (listed) {% endcomment %}
 
 {% block content %}
-Buy me please!
+
+<div>
+    <ul>
+        <li>Card name: {{ listing.card.name }}
+        <li>Seller price: {{ listing.price }}
+        <li>Contact: {{ listing.seller.user|title }}
+            <ul>
+                <li>{{ listing.seller.user.email }}
+            </ul>
+    </ul>
+</div>
 {% endblock %}
