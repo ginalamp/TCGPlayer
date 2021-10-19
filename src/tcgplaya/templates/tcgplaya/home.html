@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% comment %} This the home page{% endcomment %}
+
+{% block content %}
+<h1>This is Home</h1>
+
+<p>
+As a base, this page should have:
+<ul>
+    <li>2 categories: cards and card listings</li>
+    <ul>
+        <li>Cards: images should be displayed, and if the user clicks on the card then they go to the card view</li>
+        <li>Cards Listings: images should be displayed, and if the user clicks on the card then they go to the card view</li>
+    </ul>
+    <li>Search bar (perhaps included in the navigation bar)</li>
+    <li>Filtering capabilities</li>
+    <li>Profile edit button (perhaps included in the navigation bar)</li>
+    <li>Log in/out and register buttons (perhaps included in the navigation bar)</li>
+</ul>
+</p>
+
+{% comment %} This displays a list of cards with links to the card view {% endcomment %}
+<h2>Cards!</h2>
+{% for card in cards %}
+<p>
+    <a href='/cards/card/{{ card.id }}'>
+    {{ card.name }}
+    </a>
+</p>
+{% endfor %}
+
+{% endblock %}

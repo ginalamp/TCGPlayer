@@ -67,6 +67,9 @@ class Card(models.Model):
     def __str__(self):
         return self.name
 
+    def __repr__(self):
+        return str(self)
+
 class CardSet(models.Model):
     '''
     Cards can be part of a card set
@@ -84,6 +87,8 @@ class CardSet(models.Model):
     def __str__(self):
         return self.set_name
 
+    def __repr__(self):
+        return str(self)
 
 class CardListing(models.Model):
     '''
@@ -100,8 +105,15 @@ class CardListing(models.Model):
     # the listed quantity of the card being listed
     quantity = models.IntegerField(default=0)
     # the buyer (if null, the card(s) has not been bought yet)
-    buyer = models.ForeignKey('Profile', related_name='buyer', blank=True,
+    buyer = models.ForeignKey('Profile', null=True, related_name='buyer', blank=True,
                               on_delete=models.CASCADE)
+    
+    # string representation of self
+    def __str__(self):
+        return f'CardListing(card={self.card}, seller={self.seller}, price={self.price})'
+
+    def __repr__(self):
+        return str(self)
 
 #######################################################
 # USERS
@@ -118,14 +130,17 @@ class Profile(models.Model):
     
     # string representaion of self
     def __str__(self):
-        return self.username
+        return f'Profile(user={self.user}, email={self.user.email})'
+    
+    def __repr__(self):
+        return str(self)
 
 # if the user is created, a profile is created as well
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
-
+    
 # when the user is saved, their profile is saved as well
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
