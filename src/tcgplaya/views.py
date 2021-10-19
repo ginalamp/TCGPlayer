@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 # example home view - TODO: move to pages
 def home_view(request):
     context = {}
-    cards = Card.objects.all()[:10]
+    cards = Card.objects.all()[:9]
     values = cards.values('id', 'name')
     context['cards'] = values
 
@@ -34,3 +34,27 @@ def card_view(request, id):
         # popularity=card.edhrec_rank
     )
     return render(request, 'tcgplaya/card.html', context)
+
+# multiple cardlistings page
+def cardlistings_view(request):
+    context = {}
+    listings = CardListing.objects.all()[:9]
+    # values = listings.values('id', 'name')
+    context = dict(
+        listings=listings
+    )
+    # context['listings'] = listings
+
+    return render(request, 'tcgplaya/cardlistings.html', context)
+
+# a single cardlisting for a card
+def cardlisting_view(request, id):
+    context = {}
+    listing = CardListing.objects.get(id=id)
+    # values = listings.values('id', 'name')
+    context = dict(
+        listing=listing
+    )
+    # context['listings'] = listings
+
+    return render(request, 'tcgplaya/cardlisting.html', context)

@@ -2,5 +2,21 @@
 {% comment %} This is a single view of a card that is for sale (listed) {% endcomment %}
 
 {% block content %}
-Buy me please!
+<h1>{{ listing.card.name }}</h1>
+
+<div>
+    <img width="300px" src={{ listing.card.img_uri }} alt="MTG Card picture">
+</div>
+
+<div>
+    <ul>
+        <li>Seller price: ${{ listing.price }}
+        <li>Contact: {{ listing.seller.user|title }}
+            <ul>
+                <li>{{ listing.seller.user.email }}
+            </ul>
+        <li>Set: {{ listing.card.cardset.set_name}}
+        <li>Rarity: {{ listing.card.rarity }}
+    </ul>
+</div>
 {% endblock %}
