@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% comment %} This is the Card Listing page (with all the card listings) {% endcomment %}
+
+{% block content %}
+<h1>Card Listings</h1>
+
+<ul>
+{% for listing in listings %}
+    <li>Listing: {{ listing }}
+{% endfor %}
+</ul>
+{% endblock %}
