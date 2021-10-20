@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+
 {% block content %}
 <h1 class="justify-content-center">
     {{ card.name }}
@@ -50,10 +51,12 @@
                         <p>No cardlistings available for this card.</p>
                     {% endif %}
                 </div>
-                <form class="form-inline my-2 my-lg-0 ml-auto" method="POST" action="/cards/cardlistings/">
-                {% csrf_token %}
-                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Add Cardlisting</button>
-                </form>
+                <div class="cardlisting-submit-button">
+                    <form class="form-inline my-2 my-lg-0 ml-auto" method="POST" action="/cards/cardlistings/">
+                    {% csrf_token %}
+                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Add Cardlisting</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
