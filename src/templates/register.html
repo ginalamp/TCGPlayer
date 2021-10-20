@@ -11,7 +11,6 @@
 </head>
 
 <form method="POST"> {% csrf_token %}
-  {% comment %} render form as paragraph text {% endcomment %}
   <div class="container">
     <div class="col-md-8 col-md-offset-2">
       <div class="panel panel-default">
@@ -33,7 +32,6 @@
             {{ form.password2.label }}
             {{ form.password2 }}
           </div>
-          {% comment %} {{ form.as_p }} {% endcomment %}
           <div class="col-md-6 col-md-offset-4">
             <input name="register" type="submit" value="Register" class="btn btn-success" /> &nbsp;
             <a href="/login/">or Login</a>

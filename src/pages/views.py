@@ -4,11 +4,6 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-
-
-
-# Import user creation form that I customised from the django standard UserCreationForm
-# Customised to add an email field and phone number field - since a seller must provide contact info
 from .forms import CreateUserForm, LoginForm
 
 # home page
@@ -44,18 +39,9 @@ def login_view(request):
     print(username)
     print(password)
     user = authenticate(username=username, password=password)
-    # if form.is_valid():
-    #     form.save()
-    #     form = LoginForm() # makes form blank after saving
-    #     return redirect("/")
-    # else:
-    #     print('invalid form')
     if user is not None:
-        # login(request, user)
-        # Redirect to a success page.
         return redirect('/')
     else:
-        # Return san 'invalid login' error message.
         print('who u')
     
     context = {'form':form}
