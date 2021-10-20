@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from .models import *
 from django.contrib.auth.models import User
 
+
 # single card view
 def card_view(request, id):
     context = {}

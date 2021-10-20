@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<center>
+    {% if searched %}
+
+    <hi>You searched for {{ searched }} </hi>
+    </br>
+    {% for card in cards %}
+    <div class="col-sm animate__animated animate__zoomIn animate__faster">
+        <a class="card-link-list" href='/cards/card/{{ card.id }}'>
+            <span class="card-title-list mx-auto">{{ card.name }}</span>
+            <img class="img-fluid mx-auto d-block card-img-list" src="{{ card.img_uri }}">
+        </a>
+    </div>
+
+    {% endfor %}
+
+    {% else %}
+
+    <h1> Yo! You forgetting something? </h1>
+
+    {% endif %}
+</center>
+
+
+
+
+{% endblock %}

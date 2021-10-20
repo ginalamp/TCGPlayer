@@ -62,3 +62,14 @@ def cart_view(request):
 def profile_view(request):
     context = {}
     return render(request, 'profile.html', context)
+
+# creating functionality of the search bar
+
+def home_searched(request):
+    if request.method == "POST":
+        searched = request.POST['searched']
+        cards = Card.objects.filter(name__contains = searched)
+        context = {'searched':searched, 'cards': cards}
+        return render(request, 'home_searched.html', context)
+    else:
+        return render(request, 'home_searched.html', {})
