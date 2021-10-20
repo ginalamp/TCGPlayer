@@ -2,6 +2,16 @@
 {% comment %} List a single new card {% endcomment %}
 
 {% block content %}
+
+<h1>{{ card }}</h1>
+
+<div>
+    ${{ suggest_price }}
+</div>
+
+
+{% endblock %}
+
 <h1>Here is where the user chooses a new card to sell</h1>
 
 <p>
@@ -18,5 +28,3 @@ As a base, this page should have:
 After the user has selected the name of the card, the additional information should be extracted from the database entry of that card (if it exists)base.html
 If the card does not exist, then the user may not add a card listing for it.
 </p>
-
-{% endblock %}
