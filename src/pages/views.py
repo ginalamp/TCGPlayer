@@ -7,13 +7,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .forms import CreateUserForm, LoginForm, UpdateProfileForm, UpdateUserForm
 from django.contrib import messages
-
-# imports for "change password"
 from django.urls import reverse_lazy
-# from django.urls import reverse
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib.messages.views import SuccessMessageMixin
-
 
 # home page
 def home_view(request, *args, **kwargs):
@@ -50,9 +46,7 @@ def login_view(request):
     print(password)
     user = authenticate(username=username, password=password)
     if user is not None:
-        # return HttpResponseRedirect('/')
         login(request, user)
-        # return redirect('/')
         return render(request, 'home.html')
     else:
         print('who u')
@@ -75,15 +69,13 @@ def profile_view(request):
         profile_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
 
         if user_form.is_valid() and profile_form.is_valid():
-            # to test if the form is valid, print out 'valid' - take out later
-            print('valid')
+            print('User form and profile form valid')
             user_form.save()
             profile_form.save()
             messages.success(request, 'Your profile has been successfully updated.')
             return redirect('/profile')
         else:
-            # to test - comment out later
-            print('nope')
+            print('User form or profile form not valid')
             user_form = UpdateUserForm(instance=request.user)
             profile_form = UpdateProfileForm(instance=request.user.profile)
     return render(request, 'profile.html', {'profile_form': profile_form})

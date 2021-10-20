@@ -11,14 +11,6 @@
 <div class="form-content">
     <form method = "post" enctype="multipart/form-data">
         {% csrf_token %}
-        {% comment %} <div class="form-row">
-            <div class="col-md-5">
-                <div class="form-group">
-                    <label class="small mb-1">Username:</label>
-                        {{ user_form.username }}
-                    <label class="small mb-1">Email:</label>
-                        {{ user_form.email }}
-                </div> {% endcomment %}
                 <div class="form-group">
                     <label class="small mb-1">Change Username:</label>
                     {{ profile_form.username }}
@@ -38,8 +30,6 @@
 		var form_fields = document.getElementsByTagName('input')
 		form_fields[2].value="{{ request.user.username }}";
         form_fields[3].value="{{ request.user.email }}";
-		{% comment %} form_fields[3].placeholder="{{ request.user.email }}"; {% endcomment %}
-
 
 		for (var field in form_fields){	
 			form_fields[field].className += ' form-control'
