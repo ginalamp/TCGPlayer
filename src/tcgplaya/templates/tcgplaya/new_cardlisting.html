@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% comment %} List a single new card {% endcomment %}
+
+{% block content %}
+<h1>Here is where the user chooses a new card to sell</h1>
+
+<p>
+This is where the user should be directed to after they have clicked the button on the card saying "create new card listing"
+</p>
+
+<p>
+As a base, this page should have:
+<ul>
+    <li>Allow the user to enter/select the name of the card</li>
+    <li>Allow the user to enter the price at which they wish to sell the card</li>
+</ul>
+
+After the user has selected the name of the card, the additional information should be extracted from the database entry of that card (if it exists)base.html
+If the card does not exist, then the user may not add a card listing for it.
+</p>
+
+{% endblock %}

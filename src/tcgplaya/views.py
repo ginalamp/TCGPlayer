@@ -41,3 +41,8 @@ def cardlisting_view(request, id):
     # context['listings'] = listings
 
     return render(request, 'tcgplaya/cardlisting.html', context)
+
+def new_cardlisting_view(request, id):
+   context = {}
+   context = dict(suggest_price=50)
+   return render(request, 'tcgplaya/new_cardlisting.html', context)
