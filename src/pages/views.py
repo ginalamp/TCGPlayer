@@ -44,6 +44,12 @@ def login_view(request):
     print(username)
     print(password)
     user = authenticate(username=username, password=password)
+    # if form.is_valid():
+    #     form.save()
+    #     form = LoginForm() # makes form blank after saving
+    #     return redirect("/")
+    # else:
+    #     print('invalid form')
     if user is not None:
         # login(request, user)
         # Redirect to a success page.
