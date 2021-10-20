@@ -4,7 +4,7 @@
 <center>
     {% if searched %}
 
-    <hi>You searched for {{ searched }} </hi>
+    <h1>You searched for {{ searched }} </h1>
     </br>
     {% for card in cards %}
     <div class="col-sm animate__animated animate__zoomIn animate__faster">
@@ -18,12 +18,8 @@
 
     {% else %}
 
-    <h1> Yo! You forgetting something? </h1>
+    <h1> Heya! You are forgetting something... </h1>
 
     {% endif %}
 </center>
-
-
-
-
 {% endblock %}

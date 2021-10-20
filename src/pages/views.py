@@ -63,8 +63,7 @@ def profile_view(request):
     context = {}
     return render(request, 'profile.html', context)
 
-# creating functionality of the search bar
-
+# functional home page search bar
 def home_searched(request):
     if request.method == "POST":
         searched = request.POST['searched']
