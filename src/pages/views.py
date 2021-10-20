@@ -5,16 +5,23 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+# profile page
 from .forms import CreateUserForm, LoginForm, UpdateProfileForm, UpdateUserForm
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib.messages.views import SuccessMessageMixin
 
+from tcgplaya.models import Card
+from .forms import CreateUserForm, LoginForm
+
 # home page
-def home_view(request, *args, **kwargs):
-    print(request.user)
+def home_view(request):
     context = {}
+    cards = Card.objects.all()
+    cards = cards.order_by('name')[4:80]
+    values = cards.values('id', 'name', 'img_uri')
+    context['cards'] = values
     return render(request, 'home.html', context)
 
 # register page
@@ -85,3 +92,15 @@ class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
     template_name = 'change_password.html'
     success_message = "Successfully Changed Your Password"
     success_url = reverse_lazy('pages:profile')
+    context = {}
+    return render(request, 'profile.html', context)
+
+# functional home page search bar
+def home_searched(request):
+    if request.method == "POST":
+        searched = request.POST['searched']
+        cards = Card.objects.filter(name__contains = searched)
+        context = {'searched':searched, 'cards': cards}
+        return render(request, 'home_searched.html', context)
+    else:
+        return render(request, 'home_searched.html', {})

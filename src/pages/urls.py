@@ -13,6 +13,6 @@ urlpatterns = [
     path('register/', views.register_view, name = 'register'),
     path('profile/', views.profile_view, name = 'profile'),
     path('cart/', views.cart_view, name = 'cart'),
-    path('change-password/', ChangePasswordView.as_view(), name='change_password')
-
+    path('change-password/', ChangePasswordView.as_view(), name='change_password'),
+    path('home_searched/', views.home_searched, name = 'home-searched'),
 ]
