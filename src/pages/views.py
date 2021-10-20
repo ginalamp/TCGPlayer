@@ -15,13 +15,19 @@ from django.contrib.messages.views import SuccessMessageMixin
 from tcgplaya.models import Card
 from .forms import CreateUserForm, LoginForm
 
+import pandas as pd
+
 # home page
 def home_view(request):
     context = {}
-    cards = Card.objects.all()
-    cards = cards.order_by('name')[4:80]
-    values = cards.values('id', 'name', 'img_uri')
-    context['cards'] = values
+    values = Card.objects \
+        .order_by('name') \
+        .values('id', 'name', 'img_uri')[4:101]
+    df = pd.DataFrame(values)
+    # remove all rows with duplicate names
+    df = df.drop_duplicates(subset='name', keep='first')
+    # export df to list of dicts
+    context['cards'] = df.to_dict('records')
     return render(request, 'home.html', context)
 
 # register page
