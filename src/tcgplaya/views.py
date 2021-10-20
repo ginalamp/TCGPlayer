@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 def home_view(request):
     context = {}
     cards = Card.objects.all()[:9]
-    values = cards.values('id', 'name')
+    values = cards.values('id', 'name', 'img_uri')
     context['cards'] = values
 
     return render(request, 'tcgplaya/home.html', context)
@@ -24,6 +24,7 @@ def card_view(request, id):
         card = card,
         listings=listings
     )
+
     return render(request, 'tcgplaya/card.html', context)
 
 # multiple cardlistings page
