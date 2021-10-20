@@ -129,7 +129,6 @@ def parse_bulk_data(filename):
     print(f"updating cards...")
     Card.objects.bulk_update(cards, ['cardset'])
 
-
 def clean_bulk_df(og_df):
     '''
     Return cleaned dataframe
