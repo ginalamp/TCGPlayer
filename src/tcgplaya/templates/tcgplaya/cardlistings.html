@@ -2,11 +2,32 @@
 {% comment %} This is the Card Listing page (with all the card listings) {% endcomment %}
 
 {% block content %}
-<h1>Card Listings</h1>
 
-<ul>
-{% for listing in listings %}
-    <li><a href='/cards/cardlisting/{{ listing.id }}'>{{ listing.card.name }} @ {{ listing.price }} by {{ listing.seller.user }} ({{ listing.seller.user.email }})</a>
-{% endfor %}
-</ul>
-{% endblock %}
+{% comment %} This displays a list of cards listings with links to the card listings view {% endcomment %}
+<br>
+<div class="cards-list-container justify-content-center" style="display: grid">
+  <div class="row" style="width: 90vw;">
+    {% for listing in listings %}
+    {% if forloop.counter|divisibleby:"4" %}
+    <div class="col-sm animate__animated animate__zoomIn animate__faster">
+      <a class="card-link-list" href='/cards/cardlisting/{{ listing.id }}'>
+        <span class="card-title-list mx-auto">{{ listing.card.name }} @ ${{ listing.price }} </span>
+        <img class="img-fluid mx-auto d-block card-img-list" src="{{ listing.card.img_uri }}">
+      </a>
+    </div>
+  </div>
+  <br>
+  {% if not forloop.last %}
+  <div class="row" style="width: 90vw;">
+    {% endif %}
+    {% else %}
+    <div class="col-sm animate__animated animate__zoomIn animate__faster">
+      <a class="card-link-list" href='/cards/cardlisting/{{ listing.id }}'>
+        <span class="mx-auto card-title-list">{{ listing.card.name }}  @ ${{ listing.price }} </span>
+        <img class="img-fluid mx-auto d-block card-img-list" src="{{ listing.card.img_uri }}">
+      </a>
+    </div>
+    {% endif %}
+    {% endfor %}
+  </div>
+  {% endblock %}
