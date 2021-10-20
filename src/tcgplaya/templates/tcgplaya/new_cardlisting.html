@@ -5,6 +5,17 @@
 
 <h1>{{ card.name }}</h1>
 
+<div class="card-listing">
+    <div class="card-container justify-content-center animate__animated animate__zoomIn animate__faster">
+        <div class="col">
+            <div class="order-md-first bg-white">
+                <img class="img-fluid mx-auto d-block" width="300px" alt="Responsive image"
+                    src="{{ card.img_uri }}">
+            </div>
+        </div>
+    </div>
+</div>
+
 <div>
     Based on market data, the value of this card is determined to be around ${{ suggest_price }}.
 </div>
