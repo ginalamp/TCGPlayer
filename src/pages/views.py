@@ -11,7 +11,7 @@ from .forms import CreateUserForm, LoginForm
 # home page
 def home_view(request):
     context = {}
-    cards = Card.objects.all()[:9]
+    cards = Card.objects.all()[:16]
     values = cards.values('id', 'name', 'img_uri')
     context['cards'] = values
 
