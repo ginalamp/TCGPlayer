@@ -22,11 +22,10 @@
                 <h2>Card Information</h2>
             </div>
             <div class="row">
-                {% comment %} col 2 description row {% endcomment %}
                 <div class="row">
                 {% if card.flavor_text %}
                     <div class="col-2">
-                        Description:
+                        Flavour text:
                     </div>
                     <div class="col-4">
                         {{ card.flavor_text }}...
@@ -35,7 +34,30 @@
                     <div>No flavour text available for this card.</div>
                 {% endif %}
                 </div>
-
+                <div class="row">
+                {% if card.rarity %}
+                    <div class="col-2">
+                        Rarity:
+                    </div>
+                    <div class="col-4">
+                        {{ card.rarity }}...
+                    </div>
+                {% else %}
+                    <div>No rarity available for this card.</div>
+                {% endif %}
+                </div>
+                <div class="row">
+                {% if card.set %}
+                    <div class="col-2">
+                        Set:
+                    </div>
+                    <div class="col-4">
+                        {{ card.set }}
+                    </div>
+                {% else %}
+                    <div>No set available for this card.</div>
+                {% endif %}
+                </div>
             </div>
         </div>
 
@@ -48,7 +70,7 @@
                 {% if listings %}
                 <ul>
                     {% for listing in listings %}
-                        <li><a href='/cards/cardlisting/{{ listing.id }}'>{{ listing.card.name }} @ {{ listing.price }} by {{ listing.seller.user }} ({{ listing.seller.user.email }})</a>
+                        <li><a href='/cards/cardlisting/{{ listing.id }}'>{{ listing.card.name }} @ {{ listing.price }} by {{ listing.seller.user|title }} ({{ listing.seller.user.email }})</a>
                     {% endfor %}
                 </ul>
                 {% else %}
