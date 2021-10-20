@@ -12,4 +12,5 @@ class CreateUserForm(UserCreationForm):
         fields = [
             'username',
             'email',
+            # 'password1',
         ]

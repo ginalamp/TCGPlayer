@@ -24,8 +24,14 @@ def register_view(request):
         form = CreateUserForm(request.POST or None)
         if form.is_valid():
             form.save()
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            print(username)
+            print(password)
             form = CreateUserForm() # makes form blank after saving
             return redirect("/login/")
+        else:
+            print('invalid form')
     
     context = {'form':form}
     return render(request, 'register.html', context)
