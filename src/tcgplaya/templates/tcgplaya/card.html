@@ -15,8 +15,6 @@
 
     {% comment %} big column 2 {% endcomment %}
     <div class="col">
-
-        {% comment %} top row details {% endcomment %}
         <div class="container p-5 my-5 bg-dark text-white">
             <div class="row">
                 <h2>Card Information</h2>
@@ -81,42 +79,6 @@
         </div>
     </div>
 </div>
-
-{% comment %}
-<div class="container">
-    <main class="pt-5">
-        <div class="row g-3">
-            <div class="col-md-5 col-lg-5 order-md-first bg-light">
-                <img class="img-fluid mx-auto d-block" width="200px" alt="Responsive image" src="{{ card.img_id }}">
-            </div>
-            {% comment %} {% comment %} <div class="col-md-7 col-lg-7 ps-md-3 ps-lg-5">
-                <h1 class="mb-0 h4">{{ name }}</h1>
-                <p><span class="lead">{{ Cardlisting.seller }}</span> Seller </p>
-                <p>{{ description }}...</p>
-                <div class="border">
-                    <div class="col">
-                        <div class="row p-3">
-                            <div class="col-6">
-                                <label for="select">Qty</label>
-                                <select id="select">
-                                    <option value="">1</option>
-                                    <option value="">2</option>
-                                    <option value="">3</option>
-                                    <option value="">4</option>
-                                    {% comment %}
-                                </select>
-
-                            </div>
-                            <div class="col-6 text-end"><button type="button" class="btn btn-secondary btn-sm">Add to
-                                    basket</button></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-</div>{% endcomment %}
 {% endblock %}
 
 {%comment%}
