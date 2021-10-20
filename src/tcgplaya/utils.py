@@ -45,6 +45,7 @@ def parse_bulk_data(filename):
         'set_id', 'set', 'set_name', 'set_type',
         'rarity', 'flavor_text', 'booster', 'edhrec_rank',
         'prices',
+        'lang',
     ]
 
     # rename columns to match model
@@ -58,7 +59,7 @@ def parse_bulk_data(filename):
     direct_copy_keys = [
         'card_id', 'name',
         'mana_cost', 'cmc', 'type_line', 'oracle_text', 'power', 'toughness', 'colors', 'keywords',
-        'rarity', 'flavor_text', 'booster', 'edhrec_rank',
+        'rarity', 'flavor_text', 'booster', 'edhrec_rank', 'lang'
     ]
     # these keys will be used for the CardSet
     direct_copy_keys_set = [
@@ -136,6 +137,9 @@ def clean_bulk_df(og_df):
     '''
     # stringify everything
     df = og_df.astype(str)
+    # only keep english cards
+    df.lang[df.lang == 'nan'] = ''
+    df = df[df['lang'] == 'en']
     # replace nan colors
     df.colors[df.colors == 'nan'] = '[]'
     # set all power/toughness/flavor_text 'nan' to ''

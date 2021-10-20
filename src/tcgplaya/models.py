@@ -63,6 +63,9 @@ class Card(models.Model):
     # some rank (not always available)
     edhrec_rank = models.DecimalField(default=0, decimal_places=1, max_digits=8,
                                       blank=True, null=True)
+    # card language
+    lang = models.CharField(default='', max_length=20)
+
 
     # string representation of self
     def __str__(self):
