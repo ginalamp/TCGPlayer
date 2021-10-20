@@ -12,12 +12,9 @@ from .forms import CreateUserForm, LoginForm
 def home_view(request):
     context = {}
     cards = Card.objects.all()
-    cards = cards.order_by('name')[:80]
+    cards = cards.order_by('name')[4:80]
     values = cards.values('id', 'name', 'img_uri')
     context['cards'] = values
-    for card in context['cards']:
-        print(card)
-
     return render(request, 'home.html', context)
 
 # register page
