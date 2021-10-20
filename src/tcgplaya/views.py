@@ -4,15 +4,6 @@ from django.http import HttpResponse
 from .models import *
 from django.contrib.auth.models import User
 
-# example home view - TODO: move to pages
-def home_view(request):
-    context = {}
-    cards = Card.objects.all()[:9]
-    values = cards.values('id', 'name', 'img_uri')
-    context['cards'] = values
-
-    return render(request, 'tcgplaya/home.html', context)
-
 # single card view
 def card_view(request, id):
     context = {}
