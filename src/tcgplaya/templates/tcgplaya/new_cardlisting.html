@@ -3,12 +3,18 @@
 
 {% block content %}
 
-<h1>{{ card }}</h1>
+<h1>{{ card.name }}</h1>
 
 <div>
-    ${{ suggest_price }}
+    Based on market data, the value of this card is determined to be around ${{ suggest_price }}.
 </div>
-
+<div>
+  <form class="form-inline my-2 my-lg-0 ml-auto" method="POST" action="/cards/cardlisting/">
+    {% csrf_token %}
+    $<input type="number" min="1" step="any" name="new_listing_price" />
+    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Submit</button>
+  </form>
+</div>
 
 {% endblock %}
 

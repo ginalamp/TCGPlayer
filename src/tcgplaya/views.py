@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
+
 from .models import *
 from django.contrib.auth.models import User
 
@@ -46,9 +47,9 @@ def new_cardlisting_view(request, id):
     context = {}
     card = Card.objects.get(id=id)
 
-    # context = dict(suggest_price=50)
     context = {
         'card': card,
         'suggest_price': card.usd
     }
     return render(request, 'tcgplaya/new_cardlisting.html', context)
+    
