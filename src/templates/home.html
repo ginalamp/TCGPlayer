@@ -2,17 +2,13 @@
 {% comment %} This the home page{% endcomment %}
 
 {% block content %}
-<h1>Home</h1>
 
 {% comment %} This displays a list of cards with links to the card view {% endcomment %}
-<div class="row justify-content-center">
-  <h2>List of Cards</h2>
-</div>
 <br>
 <div class="cards-list-container justify-content-center" style="display: grid">
-  <div class="row" style="width: 60vw;">
+  <div class="row" style="width: 90vw;">
     {% for card in cards %}
-    {% if forloop.counter|divisibleby:"3" %}
+    {% if forloop.counter|divisibleby:"4" %}
     <div class="col-sm animate__animated animate__zoomIn animate__faster">
       <a class="card-link-list" href='/cards/card/{{ card.id }}'>
         <span class="card-title-list mx-auto">{{ card.name }}</span>
@@ -22,7 +18,7 @@
   </div>
   <br>
   {% if not forloop.last %}
-  <div class="row" style="width: 60vw;">
+  <div class="row" style="width: 90vw;">
     {% endif %}
     {% else %}
     <div class="col-sm animate__animated animate__zoomIn animate__faster">
