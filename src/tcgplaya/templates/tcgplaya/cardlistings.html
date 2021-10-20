@@ -31,17 +31,3 @@
     {% endfor %}
   </div>
   {% endblock %}
-
-
-{% comment %} {% extends 'base.html' %}
-
-
-{% block content %}
-<h1>Card Listings</h1>
-
-<ul>
-{% for listing in listings %}
-    <li><a href='/cards/cardlisting/{{ listing.id }}'>{{ listing.card.name }} @ {{ listing.price }} by {{ listing.seller.user }} ({{ listing.seller.user.email }})</a>
-{% endfor %}
-</ul>
-{% endblock %} {% endcomment %}
