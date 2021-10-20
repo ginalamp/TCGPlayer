@@ -92,8 +92,6 @@ class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
     template_name = 'change_password.html'
     success_message = "Successfully Changed Your Password"
     success_url = reverse_lazy('pages:profile')
-    context = {}
-    return render(request, 'profile.html', context)
 
 # functional home page search bar
 def home_searched(request):
