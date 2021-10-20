@@ -2,13 +2,57 @@
 <html lang="en">
 
 <head>
+  <title>TCG Player</title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+
+<form method="POST"> {% csrf_token %}
+  {% comment %} render form as paragraph text {% endcomment %}
+  <div class="container">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="panel panel-default">
+        <div class="panel-heading">Login</div>
+        <div class="panel-body">
+          <div class="form-group clearfix">
+            {{ form.username.label }}
+            {{ form.username }}
+          </div>
+          <div class="form-group clearfix">
+            {{ form.password.label }}
+            {{ form.password }}
+          </div>
+          {% comment %} {{ form.as_p }} {% endcomment %}
+          <div class="col-md-6 col-md-offset-4">
+            <input name="login" type="submit" value="Login" class="btn btn-success" /> &nbsp;
+            <a href="/register/">or Register</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+
+<head>
 	<title>TCG Player</title>
 
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> 
 </head>
-<div class="container">
+<h2>Login</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Login</button>
+  </form>
+{% comment %} <div class="container">
 	<form action="/login/" method="post">
 		{% csrf_token %}
 		<div class="col-md-8 col-md-offset-2">
@@ -40,4 +84,4 @@
 	</form>
 </div>
 
-</html>
+</html> {% endcomment %}

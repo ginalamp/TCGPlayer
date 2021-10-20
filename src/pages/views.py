@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 
 # Import user creation form that I customised from the django standard UserCreationForm
 # Customised to add an email field and phone number field - since a seller must provide contact info
-from .forms import CreateUserForm
+from .forms import CreateUserForm, LoginForm
 
 # home page
 def home_view(request, *args, **kwargs):
@@ -38,6 +38,7 @@ def register_view(request):
 
 # login page
 def login_view(request):
+    form = LoginForm()
     username = request.POST.get('username')
     password = request.POST.get('password')
     print(username)
@@ -51,10 +52,8 @@ def login_view(request):
         # Return san 'invalid login' error message.
         print('who u')
     
-    # profile = user.profile
-    # context = {}
-    # return render(request, 'login.html', context)
-    return render(request, 'login.html', {})
+    context = {'form':form}
+    return render(request, 'login.html', context)
 
 # cart page
 def cart_view(request):
