@@ -4,7 +4,14 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .forms import CreateUserForm, LoginForm
+from .forms import CreateUserForm, LoginForm, UpdateProfileForm, UpdateUserForm
+from django.contrib import messages
+
+# imports for "change password"
+from django.urls import reverse_lazy
+from django.contrib.auth.views import PasswordChangeView
+from django.contrib.messages.views import SuccessMessageMixin
+
 
 # home page
 def home_view(request, *args, **kwargs):
@@ -54,5 +61,29 @@ def cart_view(request):
 
 # profile
 def profile_view(request):
-    context = {}
-    return render(request, 'profile.html', context)
+    profile_form = UpdateProfileForm()
+    print(request.user)
+
+    if request.method == 'POST':
+        user_form = UpdateUserForm(request.POST, instance=request.user)
+        profile_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            # to test if the form is valid, print out 'valid' - take out later
+            print('valid')
+            user_form.save()
+            profile_form.save()
+            messages.success(request, 'Your profile has been successfully updated.')
+            return redirect('/profile')
+        else:
+            # to test - comment out later
+            print('nope')
+            user_form = UpdateUserForm(instance=request.user)
+            profile_form = UpdateProfileForm(instance=request.user.profile)
+    return render(request, 'profile.html', {'profile_form': profile_form})
+
+# change password
+class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
+    template_name = 'change_password.html'
+    success_message = "Successfully Changed Your Password"
+    success_url = reverse_lazy('users-home')
