@@ -53,10 +53,12 @@ def new_cardlisting_view(request, id):
         card = Card.objects.get(id=id)
         print(request.user)
         # print(request.user.profile)
+        seller_profile = Profile.objects.get(user = request.user)
+        print(seller_profile)
         if listing_price is not None:
             cardlisting = CardListing.objects.create(
                 card=card,
-                seller=request.user,
+                seller=seller_profile,
                 price=listing_price
             )
             print("new cardlisting created: ", cardlisting)
