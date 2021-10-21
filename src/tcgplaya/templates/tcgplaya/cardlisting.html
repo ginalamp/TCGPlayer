@@ -9,7 +9,7 @@
 
 {% comment %} Add to Cart {% endcomment %}
 <div class="cardlisting-submit-button">
-    <form class="form-inline my-2 my-lg-0 ml-auto" method="POST" action="/cart/">
+    <form class="form-inline my-2 my-lg-0 ml-auto" method="POST">
     {% csrf_token %}
     <button class="btn btn-secondary my-2 my-sm-0" type="submit">Add to Cart</button>
     </form>

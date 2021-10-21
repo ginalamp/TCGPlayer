@@ -40,6 +40,16 @@ def cardlisting_view(request, id):
     )
     # context['listings'] = listings
 
+    # add card to cart
+    if request.method == "POST":
+        profile = Profile.objects.get(user = request.user)
+        print(profile)
+        listing = CardListing.objects.get(id=id)
+        print(listing)
+        profile.cart.add(listing)
+        print(profile)
+        redirect('/cart')
+
     return render(request, 'tcgplaya/cardlisting.html', context)
 
 # create a new cardlisting from a given card
