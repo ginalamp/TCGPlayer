@@ -3,36 +3,54 @@
 {% block content %}
 
 <title>My profile</title>
+<div class="form-content my-3 p-3">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-5">
+                <div class="card shadow-lg border-0 rounded-lg mt-0 mb-3">
+                    <div class="card-header justify-content-center">
+                        <h1 class="font-weight-light my-4 text-center">Your Profile </h1>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-row">
+                                <div class="col-md-10 offset-md-1">
+                                    <div class="form-group">
+                                        <label class="small mb-1">Username:</label><br>
+                                        {{ profile_form.username }}
+                                    </div>
+                                    <span></span>
+                                    <label class="small mb-1">Email:</label><br>
+                                    {{ profile_form.email }}<br>
+                                    <a href="/change-password/"> Change Password</a>
 
-<div class="row my-3 p-3">
-    <h1>Your Profile </h1>
-</div>
-
-<div class="form-content">
-    <form method = "post" enctype="multipart/form-data">
-        {% csrf_token %}
-                <div class="form-group">
-                    <label class="small mb-1">Username:</label>
-                    {{ profile_form.username }}
+                                    <br><br>
+                                    <div class="form-row justify-content-center">
+                                        <div class="col-md-10 offset-md-1">
+                                            <div class="form-group mt-0 mb-1">
+                                                <button type="submit" class="btn btn-dark">Save Changes</button>
+                                                <button type="reset" class="btn btn-dark">Reset</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                        </form>
+                    </div>
                 </div>
-                <label class="small mb-1">Email:</label>
-                    {{ profile_form.email }}
-                <a href="/change-password/">Change Password</a>
-
-        <br><br>
-        <button type="submit" class="btn btn-dark btn-lg">Save Changes</button>
-        <button type="reset" class="btn btn-dark btn-lg">Reset</button>
-    </form>
+            </div>
+        </div>
+    </div>
 </div>
-
+<!-- </div>
+</div> -->
 <script>
 
-		var form_fields = document.getElementsByTagName('input')
-		form_fields['username'].value="{{ request.user.username }}";
-        form_fields['email'].value="{{ request.user.email }}";
+    var form_fields = document.getElementsByTagName('input')
+    form_fields['username'].value = "{{ request.user.username }}";
+    form_fields['email'].value = "{{ request.user.email }}";
 
-		for (var field in form_fields){	
-			form_fields[field].className += 'form-control'
-		}
+    for (var field in form_fields) {
+        form_fields[field].className += 'form-control'
+    }
 </script>
 {% endblock %}
