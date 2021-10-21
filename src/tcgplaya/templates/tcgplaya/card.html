@@ -1,81 +1,102 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 class="justify-content-center">
-    {{ card.name }}
-</h1>
-<h5>Card</h5>
-<br>
-
-<div class="card-listing row">
-    <div class="card-container justify-content-center animate__animated animate__zoomIn animate__faster">
-        <div class="col">
-        <img class="img-fluid mx-auto d-block" width="300px" alt="Responsive image"
-            src="{{ card.img_uri }}">
-        </div>
-    </div>
-    <div class="card-details-container">
-        <div>
-            {% comment %} top row details {% endcomment %}
-            <div class="card text-white bg-dark card-info animate__animated animate__bounceIn" style="width: 60%">
-                <h3 class="card-header">Card Information</h3>
-                <div class="card-body">
-                    {% if card.flavor_text or card.rarity or card.card_set%}
-                        <div>
-                            {% comment %} card details {% endcomment %}
-                            {% if card.flavor_text %}
-                                <p><strong>Flavour text: </strong>{{ card.flavor_text }}</p>
-                            {% else %}
-                                <p><strong>Flavour text: </strong>No flavour text available for this card.</p>
-                            {% endif %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg border-0 rounded-lg mt-0 mb-3">
+                <div class="card-header justify-content-center">
+                    <h2 class="font-weight-light my-4 text-center">
+                        {{ card.name }}
+                    </h2>
+                    <h6 class="font-weight-light my-4 text-center">Card</h6>
+                </div><br>
+                <div class="card-listing">
+                    <div
+                        class="card-container justify-content-center animate__animated animate__zoomIn animate__faster">
+                        {% comment %} big column 1 {% endcomment %}
+                        <div class="col">
+                            <div class="order-md-first bg-white">
+                                <img class="img-fluid mx-auto d-block" width="300px" alt="Responsive image"
+                                    src="{{ card.img_uri }}">
+                            </div>
                         </div>
+                    </div>
+                    <br>
+                    <div class="card-details-container ">
                         <div>
-                            {% if card.rarity %}
-                                <p><strong>Rarity: </strong>{{ card.rarity }}</p>
-                            {% else %}
-                                <p><strong>Rarity: </strong>No rarity available for this card.</p>
-                            {% endif %}
+                            {% comment %} top row details {% endcomment %}
+                            <div class="card text-black bg-muted card-info animate__animated animate__bounceIn "
+                                style="width: 100%">
+                                <div class="card-header">
+                                    <h3 class="font-weight-light my-4">Card Information</h3>
+                                </div>
+                                <div class="card-body">
+                                    {% if card.flavor_text or card.rarity or card.card_set%}
+                                    <div>
+                                        {% comment %} card details {% endcomment %}
+                                        {% if card.flavor_text %}
+                                        <p><strong>Flavour text: </strong>{{ card.flavor_text }}</p>
+                                        {% else %}
+                                        <p><strong>Flavour text: </strong>No flavour text available for this card.</p>
+                                        {% endif %}
+                                    </div>
+                                    <div>
+                                        {% if card.rarity %}
+                                        <p><strong>Rarity: </strong>{{ card.rarity }}</p>
+                                        {% else %}
+                                        <p><strong>Rarity: </strong>No rarity available for this card.</p>
+                                        {% endif %}
+                                    </div>
+                                    <div>
+                                        {% if card.card_set %}
+                                        <p><strong>Set: </strong>{{ card.card_set }}</p>
+                                        {% else %}
+                                        <p><strong>Set: </strong>No set available for this card.</p>
+                                        {% endif %}
+                                    </div>
+                                    {% else %}
+                                    <div>
+                                        <p>No additional information available about this card</p>
+                                    </div>
+                                    {% endif%}
+                                </div>
+                            </div>
+                            {% comment %} bottom row cardlistings {% endcomment %}
+                            <div class="card text-black bg-muted animate__animated animate__bounceIn"
+                                style="width: 100%">
+                                <div class="card-header">
+                                    <h3 class="font-weight-light my-4">Card Listings</h3>
+                                </div>
+                                <div class="card-body">
+                                    {% if listings %}
+                                    <ul>
+                                        {% for listing in listings %}
+                                        <li><a href='/cards/cardlisting/{{ listing.id }}'>{{ listing.card.name }} @ ${{
+                                                listing.price }} by {{ listing.seller.user }} ({{
+                                                listing.seller.user.email }})</a>
+                                            {% endfor %}
+                                    </ul>
+                                    {% else %}
+                                    <p>No cardlistings available for this card.</p>
+                                    {% endif %}
+                                </div>
+                                <div class="cardlisting-submit-button">
+                                    <form class="form-inline my-2 my-lg-0 ml-auto justify-content-end" method="POST"
+                                        action="/cards/new-cardlisting/{{ card.id }}">
+                                        {% csrf_token %}
+                                        <button class="btn btn-secondary my-2 my-sm-0 " type="submit">Add
+                                            Cardlisting</button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            {% if card.card_set %}
-                                <p><strong>Set: </strong>{{ card.card_set }}</p>
-                            {% else %}
-                                <p><strong>Set: </strong>No set available for this card.</p>
-                            {% endif %}
-                        </div>
-                    {% else %}
-                        <div>
-                            <p>No additional information available about this card</p>
-                        </div>
-                    {% endif%}
-                </div>
-            </div>
-
-            <br>
-
-            {% comment %} bottom row cardlistings {% endcomment %}
-            <div class="card text-white bg-dark animate__animated animate__bounceIn" style="width: 60%">
-                <h3 class="card-header">Card Listings</h3>
-                <div class="card-body">
-                    {% if listings %}
-                        <ul>
-                            {% for listing in listings %}
-                                <li><a href='/cards/cardlisting/{{ listing.id }}'>{{ listing.card.name }} @ ${{ listing.price }} by {{ listing.seller.user }} ({{ listing.seller.user.email }})</a>
-                            {% endfor %}
-                        </ul>
-                    {% else %}
-                        <p>No cardlistings available for this card.</p>
-                    {% endif %}
-                </div>
-                <div class="cardlisting-submit-button">
-                    <form class="form-inline my-2 my-lg-0 ml-auto" method="POST" action="/cards/new-cardlisting/{{ card.id }}">
-                    {% csrf_token %}
-                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Add Cardlisting</button>
-                    </form>
+                  </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 
 {% endblock %}
