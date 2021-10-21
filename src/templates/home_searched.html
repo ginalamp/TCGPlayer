@@ -2,6 +2,12 @@
 {% block content %}
 
 <center>
+    <form class="form-inline justify-content-center" method="POST" action="/home_searched/">
+    {% csrf_token %}
+    <input class="form-control mr-sm-2" type="search" placeholder="Search Card..." aria-label="Search" name="searched">
+    <button class="btn btn-secondary" type="submit">Search</button>
+  </form>
+  <br>
     {% if searched %}
 
     <h1>Showing results for "{{ searched }}" </h1>
