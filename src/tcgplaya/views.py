@@ -45,14 +45,12 @@ def cardlisting_view(request, id):
 # create a new cardlisting from a given card
 def new_cardlisting_view(request, id):
     context = {}
-    print(request)
+    print(request.user)
     if request.method == "POST":
         listing_price = request.POST.get('listing_price')
         print("listing price --->", listing_price)
         # create new cardlisting
         card = Card.objects.get(id=id)
-        print(request.user)
-        # print(request.user.profile)
         seller_profile = Profile.objects.get(user = request.user)
         print(seller_profile)
         if listing_price is not None:
