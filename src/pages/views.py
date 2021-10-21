@@ -105,13 +105,12 @@ def home_searched(request):
     if request.method == "POST":
         searched = request.POST['searched']
         cards = Card.objects.filter(name__contains = searched)
-        print(cards)
         if not cards:
             return render(request, 'home_searched.html', {})
         context = {
             'searched': searched,
             'cards': cards
-            }
+        }
         return render(request, 'home_searched.html', context)
         
     return render(request, 'home_searched.html', {})
