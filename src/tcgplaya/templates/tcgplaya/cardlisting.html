@@ -1,55 +1,45 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
 {% block content %}
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-lg-8">
-            <div class="card shadow-lg border-0 rounded-lg mt-0 mb-3">
+    <div class="row justify-content-center ">
+        <div class="col-lg-10">
+            <div
+                class="card light-gray-border shadow-lg rounded-lg mt-0 mb-3 animate__animated animate__zoomIn animate__faster">
                 <div class="card-header justify-content-center">
                     <h2 class="font-weight-light my-4 text-center">
                         {{ listing.card.name }}
                     </h2>
                     <h6 class="font-weight-light my-4 text-center">Card Listing</h6>
                 </div><br>
-              {% comment %} add to cart button {% endcomment %}
-              <div class="cardlisting-submit-button">
-                <form class="form-inline my-2 my-lg-0 ml-auto" method="POST">
-                {% csrf_token %}
-                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Add to Cart</button>
-                </form>
-            </div>
                 <div class="card-listing">
                     <div
-                        class="card-container justify-content-center animate__animated animate__zoomIn animate__faster">
+                        class="card-container justify-content-center animate__animated animate__bounceIn animate__fast delay-anim">
                         {% comment %} big column 1 {% endcomment %}
                         <div class="col">
                             <div class="order-md-first bg-white">
                                 <img class="img-fluid mx-auto d-block" width="300px" alt="Responsive image"
                                     src="{{ listing.card.img_uri }}">
                             </div>
+                            <br>
+                            {% comment %} Add to cart {% endcomment %}
+                            <div class="row add-to-cart-btn">
+                                <form method="POST">{% csrf_token %}
+                                    <button class="btn btn-primary my-2 my-sm-0 " type="submit" id="add-to-cart-btn"><i
+                                            class="bi bi-cart-plus" style="font-size: 1rem;"></i> Add to Cart</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                     <br>
-                    <div class="card-details-container">
-                        <div>
-                            {% comment %} top row cardlistings {% endcomment %}
-                            <div class="card text-black bg-muted card-info animate__animated animate__bounceIn "
-                                style="width: 100%">
+                    <div class="card-details-container animate__animated animate__bounceIn delay-anim">
+                        <div class="card-information-container">
+                            {% comment %} top row details {% endcomment %}
+                            <div class="card text-black bg-muted card-info " style="width: 100%">
                                 <div class="card-header">
-                                    <h3 class="font-weight-light my-4">Card Listing details</h3>
-                                </div>
-                                <div class="card-body">
-                                    <ul>
-                                        <li>Price: ${{ listing.price }}
-                                        <li>Seller: {{ listing.seller.user|title }} ({{ listing.seller.user.email }})
-                                    </ul>
-                                </div>
-                            </div>
-                            {% comment %} bottom row details {% endcomment %}
-                            <div class="card text-black bg-muted card-info animate__animated animate__bounceIn "
-                                style="width: 100%">
-                                <div class="card-header">
-                                    <h3 class="font-weight-light my-4">Card Information</h3>
+                                    <i class="bi bi-info-circle"></i>
+                                    <span class="font-weight-light my-4 info-header" style="font-size: 1.2rem;">Card
+                                        Information</span>
                                 </div>
                                 <div class="card-body">
                                     {% if listing.card.flavor_text or listing.card.rarity or listing.card.card_set%}
@@ -80,36 +70,44 @@
                                         <p>No additional information available about this card</p>
                                     </div>
                                     {% endif%}
-                                    {% comment %} Direct to this cardlisting's individual card page {% endcomment %}
-                                    <div>
-                                        <a href="/cards/card/{{ listing.card.id }}">Find out more about this Card</a>
-                                    </div>
                                 </div>
                             </div>
+                            <br>
+                            {% comment %} bottom row cardlistings {% endcomment %}
+                            <div class="card card-listings-container text-black bg-muted" style="width: 100%">
+                                <div class="card-header">
+                                    <i class="bi bi-list" style="font-size: 1.2rem;"></i>
+                                    <span class="font-weight-light my-4 info-header">Card Listing Details</span>
+                                </div>
+                                <div class="card-body">
+                                    <ul>
+                                        <li>Price: ${{ listing.price }}
+                                        <li>Seller: {{ listing.seller.user|title }} ({{ listing.seller.user.email }})
+                                    </ul>
+                                </div>
+                            </div>
+                            <br>
                         </div>
                     </div>
                 </div>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>
 
-                {% endblock %}
+<script>
+    let delay_duration = 10000;
+    $('#add-to-cart-btn').on('click', () => {
+        $('#tmsg').toast({ autohide: false, animation: false });
+        $('#tmsg').toast('show');
+        $('#tmsg').css('display', 'block');
 
-                {% comment %} This is a single view of a card that is for sale (listed) {% endcomment %}
+        setTimeout(() => {
+            $('#tmsg').css('display', 'none');
+        }, delay_duration);
+    });
+</script>
 
-                {% comment %} {% block content %}
-                <h1>{{ listing.card.name }}</h1>
 
-                <div>
-                    <img width="300px" src={{ listing.card.img_uri }} alt="MTG Card picture">
-                </div>
-
-                <div>
-                    <ul>
-                        <li>Seller price: ${{ listing.price }}
-                        <li>Contact: {{ listing.seller.user|title }}
-                            <ul>
-                                <li>{{ listing.seller.user.email }}
-                            </ul>
-                        <li>Set: {{ listing.card.cardset.set_name}}
-                        <li>Rarity: {{ listing.card.rarity }}
-                    </ul>
-                </div>
-                {% endblock %} {% endcomment %}
+{% endblock %}
