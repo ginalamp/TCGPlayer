@@ -68,3 +68,49 @@ def new_cardlisting_view(request, id):
             'listing_price': listing_price,
         }
     return render(request, 'tcgplaya/new_cardlisting.html', context)
+
+# functional cardlistings page search bar
+def cardlistings_searched(request):
+    if request.method == "POST":
+        searchedL = request.POST['searchedL']
+        listings = CardListing.objects.all()
+        # listings = CardListing.objects.filter(card__name__icontains = searchedL)
+
+        # if not listings:
+        #     return render(request, 'tcgplaya/cardlistings_searched.html', {})
+        # context = {
+        #     'searched': searchedL,
+        #     'listings': listings
+        # }
+        # get all listings whose cards contain searched word
+        matched_search_listings = []
+        for listing in listings:
+            if searchedL.lower() in listing.card.name.lower():
+                matched_search_listings.append(listing)
+
+        # return empty dict if no matches found
+        if not matched_search_listings:
+            return render(request, 'tcgplaya/cardlistings_searched.html', {})
+
+        context = {
+            'searchedL': searchedL,
+            'listings': matched_search_listings
+        }
+        return render(request, 'tcgplaya/cardlistings_searched.html', context)
+        
+    return render(request, 'tcgplaya/cardlistings_searched.html', {})
+
+
+# def home_searched(request):
+#     if request.method == "POST":
+#         searched = request.POST['searched']
+#         cards = Card.objects.filter(name__contains = searched)
+#         if not cards:
+#             return render(request, 'home_searched.html', {})
+#         context = {
+#             'searched': searched,
+#             'cards': cards
+#         }
+#         return render(request, 'home_searched.html', context)
+        
+#     return render(request, 'home_searched.html', {})

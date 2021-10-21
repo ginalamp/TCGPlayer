@@ -2,7 +2,12 @@
 {% comment %} This is the Card Listing page (with all the card listings) {% endcomment %}
 
 {% block content %}
-
+<form class="form-inline justify-content-center" method="POST" action="/cards/cardlistings_searched/">
+        {% csrf_token %}
+        <input class="form-control mr-sm-2" type="search" placeholder="Search Listing..." aria-label="Search"
+            name="searchedL">
+        <button class="btn btn-secondary" type="submit">Search</button>
+    </form>
 {% comment %} This displays a list of cards listings with links to the card listings view {% endcomment %}
 <br>
 <div class="cards-list-container justify-content-center" style="display: grid">
