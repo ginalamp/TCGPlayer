@@ -43,12 +43,10 @@ def cardlisting_view(request, id):
     # add card to cart
     if request.method == "POST":
         profile = Profile.objects.get(user = request.user)
-        print(profile)
         listing = CardListing.objects.get(id=id)
-        print(listing)
         profile.cart.add(listing)
         print(profile)
-        redirect('/cart')
+        return redirect('/cart/')
 
     return render(request, 'tcgplaya/cardlisting.html', context)
 
