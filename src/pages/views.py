@@ -1,15 +1,12 @@
 # Renders the general html templates
 from django.contrib.auth import authenticate, login, logout
-from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import AnonymousUser, User
+
 # profile page
 from .forms import CreateUserForm, LoginForm, UpdateProfileForm, UpdateUserForm
 from django.contrib import messages
 from django.urls import reverse_lazy
-from django.contrib.auth.views import LogoutView, PasswordChangeView, logout_then_login
+from django.contrib.auth.views import PasswordChangeView
 from django.contrib.messages.views import SuccessMessageMixin
 
 from tcgplaya.models import Card
@@ -60,7 +57,6 @@ def login_view(request):
     user = authenticate(username=username, password=password)
     if user is not None:
         login(request, user)
-        # return render(request, 'home.html')
         return redirect("/home/")
     else:
         print('who u')
