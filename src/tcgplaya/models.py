@@ -128,7 +128,7 @@ class Profile(models.Model):
     User profile: extension of django.contrib.auth.model.User
     '''
     # the user this profile is for
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, related_name="profile", on_delete=models.CASCADE)
     # the user's username
     username = models.TextField(default='')
     

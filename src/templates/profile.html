@@ -12,12 +12,12 @@
     <form method = "post" enctype="multipart/form-data">
         {% csrf_token %}
                 <div class="form-group">
-                    <label class="small mb-1">Change Username:</label>
+                    <label class="small mb-1">Username:</label>
                     {{ profile_form.username }}
                 </div>
                 <label class="small mb-1">Email:</label>
                     {{ profile_form.email }}
-                <a href="/change-password/"> Change Password</a>
+                <a href="/change-password/">Change Password</a>
 
         <br><br>
         <button type="submit" class="btn btn-dark btn-lg">Save Changes</button>
@@ -28,8 +28,8 @@
 <script>
 
 		var form_fields = document.getElementsByTagName('input')
-		form_fields[2].value="{{ request.user.username }}";
-        form_fields[3].value="{{ request.user.email }}";
+		form_fields['username'].value="{{ request.user.username }}";
+        form_fields['email'].value="{{ request.user.email }}";
 
 		for (var field in form_fields){	
 			form_fields[field].className += 'form-control'

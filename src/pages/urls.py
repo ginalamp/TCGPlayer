@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 from pages.views import ChangePasswordView
-from django.conf.urls import url
+from django.conf.urls import include, url
 
 
 # pages url configuration
@@ -15,4 +15,5 @@ urlpatterns = [
     path('cart/', views.cart_view, name = 'cart'),
     path('change-password/', ChangePasswordView.as_view(), name='change_password'),
     path('home_searched/', views.home_searched, name = 'home-searched'),
+    path('accounts/', include('django.contrib.auth.urls')),
 ]

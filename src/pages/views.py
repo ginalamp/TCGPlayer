@@ -60,7 +60,8 @@ def login_view(request):
     user = authenticate(username=username, password=password)
     if user is not None:
         login(request, user)
-        return render(request, 'home.html')
+        # return render(request, 'home.html')
+        return redirect("/home/")
     else:
         print('who u')
     
