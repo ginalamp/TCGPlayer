@@ -24,19 +24,41 @@
                     <h3>Card Information</h3>
                 </div>
                 <div class="card-body">
-                    {% comment %} col 2 description row {% endcomment %}
-                    {% if card.flavor_text %}
-                        <p><strong>Description: </strong>{{ card.flavor_text }}...</p>
+                    {% if card.flavor_text or card.rarity or card.card_set%}
+                        <div>
+                            {% comment %} card details {% endcomment %}
+                            {% if card.flavor_text %}
+                                <p><strong>Flavour text: </strong>{{ card.flavor_text }}</p>
+                            {% else %}
+                                <p><strong>Flavour text: </strong>No flavour text available for this card.</p>
+                            {% endif %}
+                        </div>
+                        <div>
+                            {% if card.rarity %}
+                                <p><strong>Rarity: </strong>{{ card.rarity }}</p>
+                            {% else %}
+                                <p><strong>Rarity: </strong>No rarity available for this card.</p>
+                            {% endif %}
+                        </div>
+                        <div>
+                            {% if card.card_set %}
+                                <p><strong>Set: </strong>{{ card.card_set }}</p>
+                            {% else %}
+                                <p><strong>Set: </strong>No set available for this card.</p>
+                            {% endif %}
+                        </div>
                     {% else %}
-                        <p>No flavour text available for this card.</p>
-                    {% endif %}
+                        <div>
+                            <p>No additional information available about this card</p>
+                        </div>
+                    {% endif%}
                 </div>
             </div>
 
             <br>
 
             {% comment %} bottom row cardlistings {% endcomment %}
-            <div class="card text-white bg-dark animate__animated animate__bounceIn" style="width: 50%">
+            <div class="card text-white bg-dark animate__animated animate__bounceIn" style="width: 60%">
                 <div class="card-header">
                     <h3>Card Listings</h3>
                 </div>
@@ -44,7 +66,7 @@
                     {% if listings %}
                         <ul>
                             {% for listing in listings %}
-                                <li><a href='/cards/cardlisting/{{ listing.id }}'>{{ listing.card.name }} @ {{ listing.price }} by {{ listing.seller.user }} ({{ listing.seller.user.email }})</a>
+                                <li><a href='/cards/cardlisting/{{ listing.id }}'>{{ listing.card.name }} @ ${{ listing.price }} by {{ listing.seller.user }} ({{ listing.seller.user.email }})</a>
                             {% endfor %}
                         </ul>
                     {% else %}
@@ -62,57 +84,4 @@
     </div>
 </div>
 
-{% comment %}
-<div class="container">
-    <main class="pt-5">
-        <div class="row g-3">
-            <div class="col-md-5 col-lg-5 order-md-first bg-light">
-                <img class="img-fluid mx-auto d-block" width="200px" alt="Responsive image" src="{{ card.img_id }}">
-            </div>
-            {% comment %} {% comment %} <div class="col-md-7 col-lg-7 ps-md-3 ps-lg-5">
-                <h1 class="mb-0 h4">{{ name }}</h1>
-                <p><span class="lead">{{ Cardlisting.seller }}</span> Seller </p>
-                <p>{{ description }}...</p>
-                <div class="border">
-                    <div class="col">
-                        <div class="row p-3">
-                            <div class="col-6">
-                                <label for="select">Qty</label>
-                                <select id="select">
-                                    <option value="">1</option>
-                                    <option value="">2</option>
-                                    <option value="">3</option>
-                                    <option value="">4</option>
-                                    {% comment %}
-                                </select>
-
-                            </div>
-                            <div class="col-6 text-end"><button type="button" class="btn btn-secondary btn-sm">Add to
-                                    basket</button></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-</div>{% endcomment %}
 {% endblock %}
-
-{%comment%}
-{% extends 'base.html' %}
-This is a single view of a card in the database
-
-{% block content %}
-<h1>This is a single card view.</h1>
-<p>
-    As a base, this page should have:
-<ul>
-    <li>Basic details about the card</li>
-    <li>An option to view more details about the card</li>
-    <li>A button/list that directs to card listings of the card</li>
-    <li>A button that allows the creation of a new card listing</li>
-</ul>
-</p>
-{% endblock %}
-{%endcomment%}
