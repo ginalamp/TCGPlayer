@@ -2,9 +2,9 @@
 
 {% block content %}
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-lg-8">
-            <div class="card shadow-lg border-0 rounded-lg mt-0 mb-3">
+    <div class="row justify-content-center ">
+        <div class="col-lg-10">
+            <div class="card light-gray-border shadow-lg rounded-lg mt-0 mb-3 animate__animated animate__zoomIn animate__faster">
                 <div class="card-header justify-content-center">
                     <h2 class="font-weight-light my-4 text-center">
                         {{ card.name }}
@@ -13,7 +13,7 @@
                 </div><br>
                 <div class="card-listing">
                     <div
-                        class="card-container justify-content-center animate__animated animate__zoomIn animate__faster">
+                        class="card-container justify-content-center animate__animated animate__bounceIn animate__fast delay-anim">
                         {% comment %} big column 1 {% endcomment %}
                         <div class="col">
                             <div class="order-md-first bg-white">
@@ -23,13 +23,14 @@
                         </div>
                     </div>
                     <br>
-                    <div class="card-details-container ">
-                        <div>
+                    <div class="card-details-container animate__animated animate__bounceIn delay-anim">
+                        <div class="card-information-container">
                             {% comment %} top row details {% endcomment %}
-                            <div class="card text-black bg-muted card-info animate__animated animate__bounceIn "
+                            <div class="card text-black bg-muted card-info "
                                 style="width: 100%">
                                 <div class="card-header">
-                                    <h3 class="font-weight-light my-4">Card Information</h3>
+                                    <i class="bi bi-info-circle"></i>
+                                    <span class="font-weight-light my-4 info-header" style="font-size: 1.2rem;">Card Information</span>
                                 </div>
                                 <div class="card-body">
                                     {% if card.flavor_text or card.rarity or card.card_set%}
@@ -62,20 +63,21 @@
                                     {% endif%}
                                 </div>
                             </div>
+                            <br>
                             {% comment %} bottom row cardlistings {% endcomment %}
-                            <div class="card text-black bg-muted animate__animated animate__bounceIn"
+                            <div class="card card-listings-container text-black bg-muted"
                                 style="width: 100%">
                                 <div class="card-header">
-                                    <h3 class="font-weight-light my-4">Card Listings</h3>
+                                    <i class="bi bi-list" style="font-size: 1.2rem;"></i>
+                                    <span class="font-weight-light my-4 info-header">Card Listings</span>
                                 </div>
                                 <div class="card-body">
                                     {% if listings %}
                                     <ul>
                                         {% for listing in listings %}
-                                        <li><a href='/cards/cardlisting/{{ listing.id }}'>{{ listing.card.name }} @ ${{
-                                                listing.price }} by {{ listing.seller.user }} ({{
-                                                listing.seller.user.email }})</a>
-                                            {% endfor %}
+                                        <li><a href='/cards/cardlisting/{{ listing.id }}'>{{ listing.card.name }} 
+                                            @ ${{listing.price }} by {{ listing.seller.user }} ({{listing.seller.user.email }})</a>
+                                        {% endfor %}
                                     </ul>
                                     {% else %}
                                     <p>No cardlistings available for this card.</p>
@@ -85,18 +87,33 @@
                                     <form class="form-inline my-2 my-lg-0 ml-auto justify-content-end" method="POST"
                                         action="/cards/new-cardlisting/{{ card.id }}">
                                         {% csrf_token %}
-                                        <button class="btn btn-secondary my-2 my-sm-0 " type="submit">Add
-                                            Cardlisting</button>
+                                        <button class="btn btn-secondary my-2 my-sm-0 " type="submit"><i class="bi bi-plus-square" style="font-size: 1rem;"></i> <span>Add
+                                            Cardlisting</span></button>
                                     </form>
                                 </div>
                             </div>
+                            <br>
                         </div>
                   </div>
                 </div>
+                <br>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    let delay_duration = 10000;
+    $('#add-to-cart-btn').on('click', () => {
+        $('#tmsg').toast({autohide: false, animation: false});
+        $('#tmsg').toast('show');
+        $('#tmsg').css('display', 'block');
+
+        setTimeout(() => {
+            $('#tmsg').css('display', 'none');
+        }, delay_duration);
+    });
+</script>
 
 
 {% endblock %}
