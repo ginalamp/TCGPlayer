@@ -12,31 +12,5 @@
       <a class="nav-link" href="/cart">Cart</a>
     </li>
   </ul>
-  <form class="form-inline my-2 my-lg-0 ml-auto" method="POST" action="/home_searched/">
-    {% csrf_token %}
-    <input class="form-control mr-sm-2" type="search" placeholder="Search Card..." aria-label="Search" name="searched">
-    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-  </form>
 </nav>
 <br>
-
-{%comment%}
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <!--this is where we can place the logo-->
-  <a class="navbar-brand" href="#">Logo</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
-    aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">My Account</a>
-      </li>
-    </ul>
-  </div>
-</nav>
-{%endcomment%}
