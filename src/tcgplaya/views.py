@@ -74,14 +74,7 @@ def cardlistings_searched(request):
     if request.method == "POST":
         searchedL = request.POST['searchedL']
         listings = CardListing.objects.all()
-        # listings = CardListing.objects.filter(card__name__icontains = searchedL)
 
-        # if not listings:
-        #     return render(request, 'tcgplaya/cardlistings_searched.html', {})
-        # context = {
-        #     'searched': searchedL,
-        #     'listings': listings
-        # }
         # get all listings whose cards contain searched word
         matched_search_listings = []
         for listing in listings:
@@ -100,17 +93,3 @@ def cardlistings_searched(request):
         
     return render(request, 'tcgplaya/cardlistings_searched.html', {})
 
-
-# def home_searched(request):
-#     if request.method == "POST":
-#         searched = request.POST['searched']
-#         cards = Card.objects.filter(name__contains = searched)
-#         if not cards:
-#             return render(request, 'home_searched.html', {})
-#         context = {
-#             'searched': searched,
-#             'cards': cards
-#         }
-#         return render(request, 'home_searched.html', context)
-        
-#     return render(request, 'home_searched.html', {})
