@@ -1,5 +1,5 @@
 # Renders the general html templates
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 from .forms import CreateUserForm, LoginForm, UpdateProfileForm, UpdateUserForm
 from django.contrib import messages
 from django.urls import reverse_lazy
-from django.contrib.auth.views import PasswordChangeView
+from django.contrib.auth.views import LogoutView, PasswordChangeView, logout_then_login
 from django.contrib.messages.views import SuccessMessageMixin
 
 from tcgplaya.models import Card
@@ -76,9 +76,15 @@ def cart_view(request):
 # profile
 def profile_view(request):
     profile_form = UpdateProfileForm()
-    print(request.user)
+    print("current user:", request.user)
 
     if request.method == 'POST':
+        print("Logout", request.POST['logout'])
+        if request.POST['logout']:
+            logout(request)
+            print("logged out ->", request.user)
+            return redirect('/login/')
+
         user_form = UpdateUserForm(request.POST, instance=request.user)
         profile_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
 

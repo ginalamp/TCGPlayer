@@ -30,7 +30,11 @@
                                         <div class="col-md-10 offset-md-1">
                                             <div class="form-group mt-0 mb-1">
                                                 <button type="submit" class="btn btn-dark">Save Changes</button>
-                                                <button type="reset" class="btn btn-dark">Reset</button>
+                                                {% comment %} <button type="reset" class="btn btn-dark">Reset</button> {% endcomment %}
+                                                <form action="/login/" method="post">
+                                                    {% csrf_token %}
+                                                    <button type="submit" class="btn btn-dark" value="logout" name="logout">Logout</button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
