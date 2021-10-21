@@ -113,8 +113,7 @@
                                     {% if listings %}
                                     <ul>
                                         {% for listing in listings %}
-                                        <li><a href='/cards/cardlisting/{{ listing.id }}'>{{ listing.card.name }} 
-                                            @ ${{listing.price }} by {{ listing.seller.user }} ({{listing.seller.user.email }})</a>
+                                        <li><a href='/cards/cardlisting/{{ listing.id }}'>{{ listing.seller.user|title }}: ${{listing.price }}</a>
                                         {% endfor %}
                                     </ul>
                                     {% else %}
