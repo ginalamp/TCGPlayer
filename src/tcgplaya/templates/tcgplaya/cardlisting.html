@@ -18,8 +18,10 @@
                         {% comment %} big column 1 {% endcomment %}
                         <div class="col">
                             <div class="order-md-first bg-white">
-                                <img class="img-fluid mx-auto d-block" width="250px" alt="Responsive image"
-                                    src="{{ listing.card.img_uri }}">
+                                <a href="/cards/card/{{ listing.card.id }}">
+                                    <img class="img-fluid mx-auto d-block" width="250px" alt="Responsive image"
+                                        src="{{ listing.card.img_uri }}">
+                                </a>
                             </div>
                             <br>
                             {% comment %} Add to cart {% endcomment %}
