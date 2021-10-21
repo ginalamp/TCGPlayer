@@ -2,49 +2,43 @@
 {% block content %}
 
 <div class="container">
-  <div class="row justify-content-center">
-    <div class="cool-lg-8">
-      <div class="card shadow-lg border-0 rounded-lg mt-0 mb-3">
-        <div class="card-header justify-content-center">
-          <h2 class="font-weight-light my-4 text-center">
-            Register
-          </h2>
-        </div>
-        <div class="font-weight-light my-4 text-center">
-        </div>
-        <form method="POST"> {% csrf_token %}
-          <div class="container">
-            <div class="col-md-8 col-md-offset-2">
-              <div class="panel panel-default">
-                <div class="panel-body">
-                  <div class="form-group clearfix">
-                    {{ form.username.label }} {{ form.username }}
-                  </div>
-                  <div class="form-group clearfix">
-                   {{ form.email.label }} {{ form.email }}
-                  </div>
-                  <div class="form-group clearfix">
-                    {{ form.password1.label }} {{ form.password1 }}
-                  </div>
-                  <div class="form-group clearfix">
-                    {{ form.password2.label }} {{ form.password2 }}
-                  </div>
-                    <div class="form-row justify-content-center">
-                      <div class="col-md-10 offset-md-1">
-                        <div class="form-group mt-0 mb-1">
-                          <input name="register" type="submit" value="Register"
-                            class="btn btn-secondary my-2 my-sm-0 btn-block" /><a href="/login/">Login</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+    <div class="row justify-content-center">
+        <div class="cool-lg-8">
+            <div class="card shadow-lg border-0 rounded-lg mt-0 mb-3">
+                <div class="card-header justify-content-center">
+                    <h2 class="font-weight-light my-4 text-center">
+                        Register
+                    </h2>
                 </div>
-              </div>
+                <div class="font-weight-light my-4 text-center">
+                </div>
+                <form method="POST"> {% csrf_token %}
+                    <div class="container">
+                        <div class="col-md-8 col-md-offset-2">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <div class="form-group clearfix">
+                                        {{ form.username.label }} {{ form.username }}
+                                    </div>
+                                    <div class="form-group clearfix">
+                                        {{ form.email.label }} {{ form.email }}
+                                    </div>
+                                    <div class="form-group clearfix">
+                                        {{ form.password1.label }} {{ form.password1 }}
+                                    </div>
+                                    <div class="form-group clearfix">
+                                        {{ form.password2.label }} {{ form.password2 }}
+                                    </div>
+                                    <div class="form-group mt-0 mb-1">
+                                        <input name="register" type="submit" value="Register" class="btn btn-secondary btn-dark btn-block my-2 my-sm-0" /><a href="/login/">Login</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
-          </div>
-        </form>
-      </div>
+        </div>
     </div>
-  </div>
 </div>
 {% endblock content %}
