@@ -2,13 +2,29 @@
 
 {% block content %}
 <h1>My cart</h1>
-{{ card }}
-<div class="card-listing row">
-    <div class="card-container justify-content-center animate__animated animate__zoomIn animate__faster">
-        <div class="col">
-        <img class="img-fluid mx-auto d-block" width="300px" alt="Responsive image"
-            src="{{ card.img_uri }}">
-        </div>
+<div class="cards-list-container justify-content-center" style="display: grid">
+  <div class="row" style="width: 90vw;">
+    {% for card in cards %}
+    {% if forloop.counter|divisibleby:"4" %}
+    <div class="col-sm animate__animated animate__zoomIn animate__faster">
+      <a class="card-link-list" href='/cards/card/{{ card.id }}'>
+        <span class="card-title-list mx-auto">{{ card.name }}</span>
+        <img class="img-fluid mx-auto d-block card-img-list" src="{{ card.img_uri }}">
+      </a>
     </div>
-</div>
+  </div>
+  <br>
+  {% if not forloop.last %}
+  <div class="row" style="width: 90vw;">
+    {% endif %}
+    {% else %}
+    <div class="col-sm animate__animated animate__zoomIn animate__faster">
+      <a class="card-link-list" href='/cards/card/{{ card.id }}'>
+        <span class="mx-auto card-title-list">{{ card.name }}</span>
+        <img class="img-fluid mx-auto d-block card-img-list" src="{{ card.img_uri }}">
+      </a>
+    </div>
+    {% endif %}
+    {% endfor %}
+  </div>
 {% endblock %}

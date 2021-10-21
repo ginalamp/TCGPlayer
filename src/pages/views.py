@@ -76,8 +76,9 @@ def cart_view(request):
     for cardlisting in profile.cart.all():
         cart.append(cardlisting.card)
     # cart = [ cardlisting.card for cardlisting in profile.cart.all() ]
+    # print(card.img_uri)
     context = {
-        'card': cart
+        'cards': cart
     }
     return render(request, 'cart.html', context)
 
