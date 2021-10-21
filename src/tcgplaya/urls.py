@@ -9,6 +9,4 @@ urlpatterns = [
     path('cardlisting/<int:id>', views.cardlisting_view),
     path('new-cardlisting/<int:id>', views.new_cardlisting_view),    
     path('cardlistings_searched/', views.cardlistings_searched)
-    
-    
 ]

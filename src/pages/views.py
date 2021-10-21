@@ -9,7 +9,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib.messages.views import SuccessMessageMixin
 
-from tcgplaya.models import Card
+from tcgplaya.models import Card, Profile
 from .forms import CreateUserForm, LoginForm
 
 import pandas as pd
@@ -66,7 +66,16 @@ def login_view(request):
 
 # cart page
 def cart_view(request):
-    context = {}
+    # cart = Profile.objects.get(user = request.user).cart
+    profile = Profile.objects.get(user = request.user)
+    cart = []
+    # for cardlisting in profile.cart.all():
+    #     cart.append(cardlisting)
+    cart = [ cardlisting for cardlisting in profile.cart.all() ]
+    # print(card.img_uri)
+    context = {
+        'listings': cart
+    }
     return render(request, 'cart.html', context)
 
 # profile
