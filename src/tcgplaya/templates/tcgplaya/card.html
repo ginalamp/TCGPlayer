@@ -62,6 +62,44 @@
                                     </div>
                                     {% endif%}
                                 </div>
+                                <p>
+                                    <button class="btn btn-dark" type="button" data-toggle="collapse"
+                                        data-target="#collapseExample" aria-expanded="false"
+                                        aria-controls="collapseExample">
+                                        More card information
+                                    </button>
+                                </p>
+                                <div class="collapse" id="collapseExample">
+                                    <div class="card card-body">
+                                        {% if card.released_at %}
+                                        <p><strong>Release Date: </strong>{{ card.released_at }}</p>
+                                        {% endif %}
+
+                                        {% if card.type_line %}
+                                        <p><strong>Type: </strong>{{ card.type_line }}</p>
+                                        {% endif %}
+
+                                        {% if card.edhrec_rank %}
+                                        <p><strong>Popularity Ranking: </strong>{{ card.edhrec_rank }}</p>
+                                        {% endif %}
+
+                                        {% if card.mana_cost %}
+                                        <p><strong>Mana Cost: </strong>{{ card.mana_cost }}</p>
+                                        {% endif %}
+
+                                        {% if card.cmc %}
+                                        <p><strong>Converted Mana Cost (CMC): </strong>{{ card.cmc }}</p>
+                                        {% endif %}
+
+                                        {% if card.power %}
+                                        <p><strong>Power: </strong>{{ card.power }}</p>
+                                        {% endif %}
+
+                                        {% if card.toughness %}
+                                        <p><strong>Toughness: </strong>{{ card.toughness }}</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
                             </div>
                             <br>
                             {% comment %} bottom row cardlistings {% endcomment %}
@@ -94,7 +132,7 @@
                             </div>
                             <br>
                         </div>
-                  </div>
+                    </div>
                 </div>
                 <br>
             </div>
