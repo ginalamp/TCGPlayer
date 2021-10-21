@@ -39,25 +39,25 @@
                     <h3>Card Information</h3>
                 </div>
                 <div class="card-body">
-                    {% if listing.card.flavor_text or isting.card.rarity or isting.card.card_set%}
+                    {% if listing.card.flavor_text or listing.card.rarity or listing.card.card_set%}
                         <div>
                             {% comment %} card details {% endcomment %}
-                            {% if isting.card.flavor_text %}
-                                <p><strong>Flavour text: </strong>{{ isting.card.flavor_text }}</p>
+                            {% if listing.card.flavor_text %}
+                                <p><strong>Flavour text: </strong>{{ listing.card.flavor_text }}</p>
                             {% else %}
                                 <p><strong>Flavour text: </strong>No flavour text available for this card.</p>
                             {% endif %}
                         </div>
                         <div>
-                            {% if isting.card.rarity %}
-                                <p><strong>Rarity: </strong>{{ isting.card.rarity }}</p>
+                            {% if listing.card.rarity %}
+                                <p><strong>Rarity: </strong>{{ listing.card.rarity }}</p>
                             {% else %}
                                 <p><strong>Rarity: </strong>No rarity available for this card.</p>
                             {% endif %}
                         </div>
                         <div>
-                            {% if isting.card.card_set %}
-                                <p><strong>Set: </strong>{{ isting.card.card_set }}</p>
+                            {% if listing.card.card_set %}
+                                <p><strong>Set: </strong>{{ listing.card.card_set }}</p>
                             {% else %}
                                 <p><strong>Set: </strong>No set available for this card.</p>
                             {% endif %}
