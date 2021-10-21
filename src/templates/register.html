@@ -1,43 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
+{% block content %}
 
-<head>
-  <title>TCG Player</title>
-
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-</head>
-
-<form method="POST"> {% csrf_token %}
-  <div class="container">
-    <div class="col-md-8 col-md-offset-2">
-      <div class="panel panel-default">
-        <div class="panel-heading">Register</div>
-        <div class="panel-body">
-          <div class="form-group clearfix">
-            {{ form.username.label }}
-            {{ form.username }}
-          </div>
-          <div class="form-group clearfix">
-            {{ form.email.label }}
-            {{ form.email }}
-          </div>
-          <div class="form-group clearfix">
-            {{ form.password1.label }}
-            {{ form.password1 }}
-          </div>
-          <div class="form-group clearfix">
-            {{ form.password2.label }}
-            {{ form.password2 }}
-          </div>
-          <div class="col-md-6 col-md-offset-4">
-            <input name="register" type="submit" value="Register" class="btn btn-success" /> &nbsp;
-            <a href="/login/">or Login</a>
-          </div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="cool-lg-8">
+            <div class="card shadow-lg border-0 rounded-lg mt-0 mb-3">
+                <div class="card-header justify-content-center">
+                    <h2 class="font-weight-light my-4 text-center">
+                        Register
+                    </h2>
+                </div>
+                <div class="font-weight-light my-4 text-center">
+                </div>
+                <form method="POST"> {% csrf_token %}
+                    <div class="container">
+                        <div class="col-md-8 col-md-offset-2">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <div class="form-group clearfix">
+                                        {{ form.username.label }} {{ form.username }}
+                                    </div>
+                                    <div class="form-group clearfix">
+                                        {{ form.email.label }} {{ form.email }}
+                                    </div>
+                                    <div class="form-group clearfix">
+                                        {{ form.password1.label }} {{ form.password1 }}
+                                    </div>
+                                    <div class="form-group clearfix">
+                                        {{ form.password2.label }} {{ form.password2 }}
+                                    </div>
+                                    <div class="form-group mt-0 mb-1">
+                                        <input name="register" type="submit" value="Register" class="btn btn-secondary btn-dark btn-block my-2 my-sm-0" /><a href="/login/">Login</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-</form>
+</div>
+{% endblock content %}
