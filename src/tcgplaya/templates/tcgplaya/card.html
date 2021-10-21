@@ -7,23 +7,23 @@
 <h5>Card</h5>
 <br>
 
-<div class="card-listing">
+<div class="card-listing row">
     <div class="card-container justify-content-center animate__animated animate__zoomIn animate__faster">
         {% comment %} big column 1 {% endcomment %}
-        <div class="col">
+        {% comment %} <div class="col">
             <div class="order-md-first bg-white">
                 <img class="img-fluid mx-auto d-block" width="300px" alt="Responsive image"
                     src="{{ card.img_uri }}">
             </div>
-        </div>
+        </div> {% endcomment %}
+        <img class="img-fluid mx-auto d-block" width="300px" alt="Responsive image"
+            src="{{ card.img_uri }}">
     </div>
     <div class="card-details-container">
         <div>
             {% comment %} top row details {% endcomment %}
             <div class="card text-white bg-dark card-info animate__animated animate__bounceIn" style="width: 60%">
-                <div class="card-header">
-                    <h3>Card Information</h3>
-                </div>
+                <h3 class="card-header">Card Information</h3>
                 <div class="card-body">
                     {% if card.flavor_text or card.rarity or card.card_set%}
                         <div>
@@ -60,9 +60,7 @@
 
             {% comment %} bottom row cardlistings {% endcomment %}
             <div class="card text-white bg-dark animate__animated animate__bounceIn" style="width: 60%">
-                <div class="card-header">
-                    <h3>Card Listings</h3>
-                </div>
+                <h3 class="card-header">Card Listings</h3>
                 <div class="card-body">
                     {% if listings %}
                         <ul>
