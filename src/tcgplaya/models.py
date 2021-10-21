@@ -4,7 +4,6 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 # TODO: update which fields need to be mandatory, etc
-# TODO: manytomany Cart - profile can have many cards, and a card can be part of many profiles (get buyer best price - cheapest price for user by querying all cardlistings for that card)
 
 # format price Decimal Fields
 price_kwargs = dict(
@@ -119,6 +118,7 @@ class CardListing(models.Model):
     def __repr__(self):
         return str(self)
 
+
 #######################################################
 # USERS
 #######################################################
@@ -131,10 +131,13 @@ class Profile(models.Model):
     user = models.OneToOneField(User, related_name="profile", on_delete=models.CASCADE)
     # the user's username
     username = models.TextField(default='')
+    # user cart
+    cart = models.ManyToManyField('CardListing')
     
     # string representaion of self
     def __str__(self):
-        return f'Profile(user={self.user}, email={self.user.email})'
+        cart = [ cardlisting.card.name for cardlisting in self.cart.all() ]
+        return f'Profile(user={self.user}, email={self.user.email}, cart={cart})'
     
     def __repr__(self):
         return str(self)
