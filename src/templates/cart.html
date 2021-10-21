@@ -2,7 +2,13 @@
 
 {% block content %}
 <h1>My cart</h1>
-
-{{ cart }}
-
+{{ card }}
+<div class="card-listing row">
+    <div class="card-container justify-content-center animate__animated animate__zoomIn animate__faster">
+        <div class="col">
+        <img class="img-fluid mx-auto d-block" width="300px" alt="Responsive image"
+            src="{{ card.img_uri }}">
+        </div>
+    </div>
+</div>
 {% endblock %}

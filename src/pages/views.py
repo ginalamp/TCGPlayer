@@ -72,12 +72,12 @@ def login_view(request):
 def cart_view(request):
     # cart = Profile.objects.get(user = request.user).cart
     profile = Profile.objects.get(user = request.user)
-    # cart = []
-    # for cardlisting in profile.cart.all():
-    #     cart.append(cardlisting.card.name)
-    cart = [ cardlisting.card.name for cardlisting in profile.cart.all() ]
+    cart = []
+    for cardlisting in profile.cart.all():
+        cart.append(cardlisting.card)
+    # cart = [ cardlisting.card for cardlisting in profile.cart.all() ]
     context = {
-        'cart': cart
+        'card': cart
     }
     return render(request, 'cart.html', context)
 
