@@ -67,6 +67,10 @@
                             <p>No additional information available about this card</p>
                         </div>
                     {% endif%}
+                    {% comment %} Direct to this cardlisting's individual card page {% endcomment %}
+                    <div>
+                        <a href="/cards/card/{{ listing.card.id }}">Find out more about this Card</a>
+                    </div>
                 </div>
             </div>
         </div>
