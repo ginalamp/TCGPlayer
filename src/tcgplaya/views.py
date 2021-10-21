@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.http import HttpResponse
 
 from .models import *
@@ -62,6 +62,7 @@ def new_cardlisting_view(request, id):
                 price=listing_price
             )
             print("new cardlisting created: ", cardlisting)
+            return redirect(f'/cards/card/{id}')
 
         context = {
             'card': card,
