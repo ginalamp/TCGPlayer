@@ -21,7 +21,7 @@ def card_view(request, id):
 # multiple cardlistings page
 def cardlistings_view(request):
     context = {}
-    listings = CardListing.objects.all()[:9]
+    listings = CardListing.objects.all()
     # values = listings.values('id', 'name')
     context = dict(
         listings=listings
