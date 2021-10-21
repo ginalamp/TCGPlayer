@@ -1,0 +1,102 @@
+body {
+    height: 100%;
+    width: 100%;
+    /* overflow-x: hidden; */
+}
+
+.body-content {
+    padding: 0.5rem;
+    height: 100%;
+    position: relative;
+}
+
+.card-listing {
+    position: relative;
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+.card-container {
+    width: 50%;
+    left: 0;
+}
+
+.card-details-container {
+    width: 50%;
+    right: 0;
+    display: grid;
+    align-items: center;
+}
+
+.card-info {
+    --animate-delay: 1s;
+}
+
+.extra-padding-right {
+    padding-right: 2rem;
+}
+
+.card-img-list-container {
+    width: 100%;
+}
+
+.card-img-list {
+    width: 15rem;
+    height: auto;
+    transition: all 0.5s;
+}
+
+.card-link-list {
+    display: block;
+    margin: auto;
+    width: 15rem;
+    transition: all 0.3s;
+}
+
+.card-link-list:hover {
+    transform: scale(1.1);
+    text-decoration: none;
+}
+
+.cards-list-container {
+    position: relative;
+    display: flex;
+    height: 100%;
+}
+
+.card-title-list {
+    display: table;
+    padding-bottom: 0.5rem;
+    color: black;
+    text-decoration: none;
+    transition: all 0.5s;
+}
+
+.add-to-cart-form {
+    align-self: center;
+    margin: auto;
+}
+
+.card-information-container,
+.card-listings-container {
+    width: 90%;
+}
+
+.add-to-cart-btn {
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+.delay-anim {
+    animation-delay: 0.2s;
+}
+
+.light-gray-border {
+    border-color: #ababab;
+}
+
+.info-header {
+    font-size: larger;
+}
