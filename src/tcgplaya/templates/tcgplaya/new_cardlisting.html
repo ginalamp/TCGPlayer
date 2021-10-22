@@ -14,14 +14,15 @@
         </div>
     </div>
 </div>
-
+</br>
 <div>
     Based on market data, the value of this card is determined to be around ${{ suggest_price }}.
 </div>
+</br>
 <div>
     <form class="form-inline my-2 my-lg-0 ml-auto" method="POST">
         {% csrf_token %}
-        <input class="form-control mr-sm-2" type="number" step="0.01" placeholder="Enter price..." name="listing_price">
+        $<input class="form-control mr-sm-2" type="number" step="0.01" value = {{ suggest_price }} placeholder="Enter price..." name="listing_price">
         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Submit</button>
     </form>
 </div>
