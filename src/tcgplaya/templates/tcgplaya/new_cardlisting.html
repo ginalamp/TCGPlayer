@@ -39,8 +39,13 @@
                                         <button class="btn btn-secondary my-2 my-sm-2 " type="submit"><i class="bi bi-plus-square" style="font-size: 1rem;"></i> <span>Add new listing</span></button>
                                     </form>
                                 </div>
+                                
                                 <div class = "extra-text">
+                                    {% if suggested_price %}
                                     Market price is currently ${{ suggest_price }}.
+                                    {% else %}
+                                    No market price available for this card.
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
