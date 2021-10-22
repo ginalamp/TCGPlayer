@@ -22,6 +22,7 @@ class LoginForm(ModelForm):
             'username',
             'password',
         ]
+        error_msg = ''
 
 # user update form
 class UpdateUserForm(forms.ModelForm):
@@ -37,11 +38,8 @@ class UpdateUserForm(forms.ModelForm):
 
 # form for users to edit their profile
 class UpdateProfileForm(ModelForm):
-    username = forms.CharField(max_length=100,
-                               required=True,
-                               widget=forms.TextInput(attrs={'class': 'form-control'}))
-    email = forms.EmailField(required=True,
-                             widget=forms.TextInput(attrs={'class': 'form-control'}))
+    username = forms.CharField(max_length=100, required=True)
+    email = forms.EmailField(required=True)
     
     class Meta:
         model = Profile

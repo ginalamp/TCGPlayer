@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% comment %} All the user's card listings (cards they have made for sale) {% endcomment %}
 
 {% block content %}
 <h1>My Card Listings</h1>
@@ -9,7 +10,7 @@
     {% if forloop.counter|divisibleby:"4" %}
     <div class="col-sm animate__animated animate__zoomIn animate__faster">
       <a class="card-link-list" href='/cards/cardlisting/{{ listing.id }}'>
-        <span class="card-title-list mx-auto">{{ listing.card.name }} @ ${{ listing.price }} </span>
+        <span class="card-title-list mx-auto">{{ listing.card.name }}: ${{ listing.price }} </span>
         <img class="img-fluid mx-auto d-block card-img-list" src="{{ listing.card.img_uri }}">
       </a>
     </div>
@@ -21,7 +22,7 @@
     {% else %}
     <div class="col-sm animate__animated animate__zoomIn animate__faster">
       <a class="card-link-list" href='/cards/cardlisting/{{ listing.id }}'>
-        <span class="mx-auto card-title-list">{{ listing.card.name }} @ ${{ listing.price }} </span>
+        <span class="mx-auto card-title-list">{{ listing.card.name }}: ${{ listing.price }} </span>
         <img class="img-fluid mx-auto d-block card-img-list" src="{{ listing.card.img_uri }}">
       </a>
     </div>
@@ -30,9 +31,8 @@
   </div>
 
 {% else %}
-<div>
-  <h3>Seems like you have not uploaded any listings yet... Let's do something about that ;)</h3>
-</div>
+  </br>
+    <h5>Seems like you have not uploaded any listings yet... Let's do something about that ;)</h5>
 {% endif %}
 
 {% endblock %}

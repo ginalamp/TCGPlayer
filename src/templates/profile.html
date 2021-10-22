@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% comment %} User profile page {% endcomment %}
 
 {% block content %}
 
@@ -12,6 +13,13 @@
                         <h1 class="font-weight-light my-4 text-center">Your Profile </h1>
                     </div>
                     <div class="card-body">
+                        <div class="row justify-content-center">
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <span class="text-success">{{ message }}</span>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
                         <form method="post" enctype="multipart/form-data">
                             {% csrf_token %}
                             <div class="form-row">
@@ -22,7 +30,7 @@
                                     </div>
                                     <span></span>
                                     <label class="small mb-1">Email:</label><br>
-                                    {{ profile_form.email }}<br>
+                                    {{ profile_form.email }}
                                     <a href="/change-password/"> Change Password</a>
 
                                     <br><br>
@@ -30,7 +38,6 @@
                                         <div class="col-md-10 offset-md-1">
                                             <div class="form-group mt-0 mb-1">
                                                 <button type="submit" class="btn btn-dark">Save Changes</button>
-                                                {% comment %} <button type="reset" class="btn btn-dark">Reset</button> {% endcomment %}
                                                 <form action="/login/" method="post">
                                                     {% csrf_token %}
                                                     <button type="submit" class="btn btn-dark" value="logout" name="logout">Logout</button>
@@ -38,6 +45,8 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
