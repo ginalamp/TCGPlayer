@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% comment %} Register user {% endcomment %}
 {% block content %}
 
 <div class="container">
@@ -10,8 +11,6 @@
                         Register
                     </h2>
                 </div>
-                <!-- <div class="font-weight-light my-4 text-center">
-                </div> -->
                 <br>
                 <form method="POST"> {% csrf_token %}
                     <div class="container justify-content-center" style="display: flex">

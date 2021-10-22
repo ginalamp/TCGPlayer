@@ -44,7 +44,7 @@ def cardlistings_searched(request):
         return render(request, 'tcgplaya/cardlistings_searched.html', context)
         
     return render(request, 'tcgplaya/cardlistings_searched.html', {})
-    
+
 # multiple cardlistings page
 def cardlistings_view(request):
     context = {}
@@ -104,7 +104,6 @@ def ajax_cart_request(request):
         
         # check if user is the seller of the cardlisting
         if profile == listing.seller:
-            seller = True
             in_cart = 'seller'
     
     if request.method == "POST":

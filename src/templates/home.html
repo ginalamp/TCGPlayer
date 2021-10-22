@@ -6,10 +6,10 @@
 {% comment %} This displays a list of cards with links to the card view {% endcomment %}
 <br>
 <form class="form-inline justify-content-center" method="POST" action="/home_searched/">
-    {% csrf_token %}
-    <input class="form-control mr-sm-2" type="search" placeholder="Search Card..." aria-label="Search" name="searched">
-    <button class="btn btn-secondary" type="submit">Search</button>
-  </form>
+  {% csrf_token %}
+  <input class="form-control mr-sm-2" type="search" placeholder="Search Card..." aria-label="Search" name="searched">
+  <button class="btn btn-secondary" type="submit">Search</button>
+</form>
 <br>
 <div class="cards-list-container justify-content-center" style="display: grid">
   <div class="row" style="width: 90vw;">

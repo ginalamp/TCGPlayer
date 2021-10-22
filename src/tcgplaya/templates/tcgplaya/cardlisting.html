@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% comment %} A single card listing (card for sale) {% endcomment %}
 
 {% block content %}
 <input name="user_value" value="{{ user }}" style="display: none">
@@ -16,7 +17,7 @@
                 <div class="card-listing">
                     <div
                         class="card-container justify-content-center animate__animated animate__bounceIn animate__fast delay-anim">
-                        {% comment %} big column 1 {% endcomment %}
+                        {% comment %} Image {% endcomment %}
                         <div class="col">
                             <div class="order-md-first bg-white">
                                 <a href="/cards/card/{{ listing.card.id }}" id="{{ listing.id }}" name="main_card">

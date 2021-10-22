@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% comment %} This is the user's Cart Page (with all the card listings that they have added to their cart) {% endcomment %}
 
 {% block content %}
 <h1>My Cart</h1>
@@ -30,9 +31,9 @@
   </div>
 
 {% else %}
-<div>
-  <h3>Seems like you have nothing in your cart yet... Let's do something about that ;)</h3>
-</div>
+</br>
+<h5>Seems like you have nothing in your cart yet... Let's do something about that ;)</h5>
+
 {% endif %}
 
 {% endblock %}
