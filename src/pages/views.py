@@ -84,8 +84,8 @@ def profile_view(request):
         print("current user:", request.user)
 
         if request.method == 'POST':
-            print("Logout", request.POST['logout'])
-            if request.POST['logout']:
+            # print("Logout", request.POST['logout'])
+            if request.POST.get('logout'):
                 logout(request)
                 print("logged out ->", request.user)
                 return redirect('/login/')
