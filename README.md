@@ -15,7 +15,7 @@ pip3 install -r requirements.txt
 ```
 
 ### Set up database
-Before completing the next steps, unzip the `all-cards-20211014091110-sample.zip` file in `src/`.
+Before completing the next steps, unzip the `all-cards-20211014091110-sample.zip` file in `src/`. This data was retrieved from [Scryfall](https://scryfall.com/docs/api/bulk-data) on the 14th of October 2021, and can be replaced with a newer version downloaded from the website (just remember to update the file path argument shown below if you do this).
 
 Then migrate the models.
 ```
