@@ -33,36 +33,41 @@ def cardlistings_view(request):
 # a single cardlisting for a card
 def cardlisting_view(request, id):
     listing = CardListing.objects.get(id=id)
-    profile = Profile.objects.get(user = request.user)
+    in_cart, seller = 'no', False
+    if request.user.username:
+        # redirect user to register page if not logged in
+        profile = Profile.objects.get(user = request.user)
 
-    # check if cardlisting in cart
-    in_cart = 'no'
-    cart = profile.cart.all()
-    for cart_listing in cart:
-        print(cart_listing)
-        if cart_listing.id == id:
-            in_cart = 'yes'
-            break
-    
-    # check if user is the seller of the cardlisting
-    seller = False
-    if profile == listing.seller:
-        seller = True
-        in_cart = 'seller'
+        # check if cardlisting in cart
+        cart = profile.cart.all()
+        for cart_listing in cart:
+            print(cart_listing)
+            if cart_listing.id == id:
+                in_cart = 'yes'
+                break
+        
+        # check if user is the seller of the cardlisting
+        if profile == listing.seller:
+            seller = True
+            in_cart = 'seller'
     
     if request.method == "POST":
-        # add and remove from cart, delete listing
-        if request.POST.get('add_cart'):
-            profile.cart.add(listing)
-            return redirect('/cart/')
-        elif request.POST.get('remove_cart'):
-            print("removing cardlisting")
-            profile.cart.filter(id=listing.id).delete()
-            return redirect('/cart/')
-        elif request.POST.get('delete_listing'):
-            print("deleting listing")
-            listing.delete()
-            return redirect('/cards/cardlistings/')
+        if request.user.username:
+            # add and remove from cart, delete listing
+            if request.POST.get('add_cart'):
+                profile.cart.add(listing)
+                return redirect('/cart/')
+            elif request.POST.get('remove_cart'):
+                print("removing cardlisting")
+                profile.cart.filter(id=listing.id).delete()
+                return redirect('/cart/')
+            elif request.POST.get('delete_listing'):
+                print("deleting listing")
+                listing.delete()
+                return redirect('/cards/cardlistings/')
+        else:
+            return redirect('/register/')
+
     context = {
         'listing': listing,
         'in_cart': in_cart,
@@ -73,6 +78,9 @@ def cardlisting_view(request, id):
 
 # create a new cardlisting from a given card
 def new_cardlisting_view(request, id):
+    if not request.user.username:
+        # redirect user to register page if not logged in
+        return redirect('/register/')
     context = {}
     print(request.user)
     if request.method == "POST":
@@ -90,7 +98,7 @@ def new_cardlisting_view(request, id):
             )
             print("new cardlisting created: ", cardlisting)
             return redirect(f'/cards/card/{id}')
-            
+
         context = {
             'card': card,
             'suggest_price': card.usd,
@@ -124,6 +132,9 @@ def cardlistings_searched(request):
 
 # user's own listings view
 def my_listings_view(request):
+    if not request.user.username:
+        # redirect user to register page if not logged in
+        return redirect('/register/')
     profile = Profile.objects.get(user = request.user)
     # get user's saved card listings
     my_listings = []
