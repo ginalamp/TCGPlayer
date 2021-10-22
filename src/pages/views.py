@@ -66,13 +66,9 @@ def login_view(request):
 
 # cart page
 def cart_view(request):
-    # cart = Profile.objects.get(user = request.user).cart
     profile = Profile.objects.get(user = request.user)
-    cart = []
-    # for cardlisting in profile.cart.all():
-    #     cart.append(cardlisting)
+    # get user's saved card listings
     cart = [ cardlisting for cardlisting in profile.cart.all() ]
-    # print(card.img_uri)
     context = {
         'listings': cart
     }
