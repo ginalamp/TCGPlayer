@@ -1,30 +1,69 @@
-{% extends 'base.html' %}
-{% comment %} List a single new card {% endcomment %}
+{% extends "base.html" %}
 
 {% block content %}
-
-<h1>{{ card.name }}</h1>
-
-<div class="card-listing">
-    <div class="card-container justify-content-center animate__animated animate__zoomIn animate__faster">
-        <div class="col">
-            <div class="order-md-first bg-white">
-                <img class="img-fluid mx-auto d-block" width="300px" alt="Responsive image" src="{{ card.img_uri }}">
+<div class="container">
+    <div class="row justify-content-center ">
+        <div class="col-lg-10">
+            <div class="card light-gray-border shadow-lg rounded-lg mt-0 mb-3 animate__animated animate__zoomIn animate__faster">
+                <div class="card-header justify-content-center">
+                    <h2 class="font-weight-light my-4 text-center">
+                        {{ card.name }}
+                    </h2>
+                    <h6 class="font-weight-light my-4 text-center">Add new Card Listing</h6>
+                </div><br>
+                <div class="card-listing">
+                    <div
+                        class="card-container justify-content-center animate__animated animate__bounceIn animate__fast delay-anim">
+                        {% comment %} big column 1 {% endcomment %}
+                        <div class="col">
+                            <div class="order-md-first bg-white">
+                                <img class="img-fluid mx-auto d-block" width="300px" alt="Responsive image"
+                                    src="{{ card.img_uri }}">
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="card-details-container animate__animated animate__bounceIn delay-anim">
+                        <div class="card-information-container">
+                            {% comment %} top row details {% endcomment %}
+                            <div class="card text-black bg-muted card-info "
+                                style="width: 100%">
+                                <div class="card-header">
+                                    <i class="bi bi-info-circle"></i>
+                                    <span class="font-weight-light my-4 info-header" style="font-size: 1.2rem;">Card Price</span>
+                                </div>
+                                <div>
+                                    <form class="form-inline my-2 my-lg-3 ml-auto justify-content-center" method="POST">
+                                        {% csrf_token %}
+                                        $<input class="form-control mr-sm-2" type="number" step="0.01" value = {{ suggest_price }} placeholder="Enter price..." name="listing_price">
+                                        <button class="btn btn-secondary my-2 my-sm-2 " type="submit"><i class="bi bi-plus-square" style="font-size: 1rem;"></i> <span>Add new listing</span></button>
+                                    </form>
+                                </div>
+                                <div class = "extra-text">
+                                    Market price is currently ${{ suggest_price }}.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
             </div>
         </div>
     </div>
 </div>
-</br>
-<div>
-    Based on market data, the value of this card is determined to be around ${{ suggest_price }}.
-</div>
-</br>
-<div>
-    <form class="form-inline my-2 my-lg-0 ml-auto" method="POST">
-        {% csrf_token %}
-        $<input class="form-control mr-sm-2" type="number" step="0.01" value = {{ suggest_price }} placeholder="Enter price..." name="listing_price">
-        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Submit</button>
-    </form>
-</div>
+
+<script>
+    let delay_duration = 10000;
+    $('#add-to-cart-btn').on('click', () => {
+        $('#tmsg').toast({autohide: false, animation: false});
+        $('#tmsg').toast('show');
+        $('#tmsg').css('display', 'block');
+
+        setTimeout(() => {
+            $('#tmsg').css('display', 'none');
+        }, delay_duration);
+    });
+</script>
+
 
 {% endblock %}
