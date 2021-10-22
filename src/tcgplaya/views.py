@@ -41,14 +41,18 @@ def cardlisting_view(request, id):
     # add and remove from card
     if request.method == "POST":
         profile = Profile.objects.get(user = request.user)
-        
-        if request.POST.get('add_cardlisting'):
+
+        if request.POST.get('add_cart'):
             profile.cart.add(listing)
-        elif request.POST.get('remove_cardlisting'):
+            return redirect('/cart/')
+        elif request.POST.get('remove_cart'):
             print("removing cardlisting")
             profile.cart.filter(id=listing.id).delete()
-
-        return redirect('/cart/')
+            return redirect('/cart/')
+        elif request.POST.get('delete_listing'):
+            print("deleting listing")
+            listing.delete()
+            return redirect('/cards/cardlistings/')
 
     return render(request, 'tcgplaya/cardlisting.html', context)
 
