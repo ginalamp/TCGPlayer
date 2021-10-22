@@ -4,6 +4,8 @@ from django.http import HttpResponse
 from .models import *
 from django.contrib.auth.models import User
 
+from hitcount.views import HitCountDetailView
+
 # single card view
 def card_view(request, id):
     context = {}
@@ -101,3 +103,9 @@ def cardlistings_searched(request):
         
     return render(request, 'tcgplaya/cardlistings_searched.html', {})
 
+# track number of card page visits
+class PostDetailView(HitCountDetailView):
+    model = Card
+    template_name = "tcgplaya/card.html"
+    slug_field = "slug"
+    count_hit = True
