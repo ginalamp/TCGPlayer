@@ -200,6 +200,7 @@
             setTimeout(() => {
                 $('#removeListingToast').css('display', 'none');
             }, 10000);
+            window.location.href = '/cards/my-listings/'
         }).fail(function() {
             // Display Toast
             $('#errorToast').toast({ autohide: false, animation: false });
