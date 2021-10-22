@@ -2,6 +2,7 @@
 
 {% block content %}
 <h1>My cart</h1>
+{% if listings %}
 <div class="cards-list-container justify-content-center" style="display: grid">
   <div class="row" style="width: 90vw;">
     {% for listing in listings %}
@@ -27,4 +28,11 @@
     {% endif %}
     {% endfor %}
   </div>
+
+{% else %}
+<div>
+  <h3>Seems like you have nothing in your cart yet... Let's do something about that ;)</h3>
+</div>
+{% endif %}
+
 {% endblock %}

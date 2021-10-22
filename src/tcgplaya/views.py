@@ -32,21 +32,42 @@ def cardlistings_view(request):
 
 # a single cardlisting for a card
 def cardlisting_view(request, id):
-    context = {}
     listing = CardListing.objects.get(id=id)
-    # values = listings.values('id', 'name')
-    context = dict(
-        listing=listing
-    )
-    # context['listings'] = listings
+    profile = Profile.objects.get(user = request.user)
 
-    # add card to cart
+    # check if cardlisting in cart
+    in_cart = 'no'
+    cart = profile.cart.all()
+    for cart_listing in cart:
+        print(cart_listing)
+        if cart_listing.id == id:
+            in_cart = 'yes'
+            break
+    
+    # check if user is the seller of the cardlisting
+    seller = False
+    if profile == listing.seller:
+        seller = True
+        in_cart = 'seller'
+    
     if request.method == "POST":
-        profile = Profile.objects.get(user = request.user)
-        listing = CardListing.objects.get(id=id)
-        profile.cart.add(listing)
-        print(profile)
-        return redirect('/cart/')
+        # add and remove from cart, delete listing
+        if request.POST.get('add_cart'):
+            profile.cart.add(listing)
+            return redirect('/cart/')
+        elif request.POST.get('remove_cart'):
+            print("removing cardlisting")
+            profile.cart.filter(id=listing.id).delete()
+            return redirect('/cart/')
+        elif request.POST.get('delete_listing'):
+            print("deleting listing")
+            listing.delete()
+            return redirect('/cards/cardlistings/')
+    context = {
+        'listing': listing,
+        'in_cart': in_cart,
+        'seller': seller,
+    }
 
     return render(request, 'tcgplaya/cardlisting.html', context)
 
