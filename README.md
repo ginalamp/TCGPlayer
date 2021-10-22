@@ -39,13 +39,7 @@ python3 manage.py runserver
 
 This will direct you to the home page:
 
-<img width="1432" alt="image" src="https://user-images.githubusercontent.com/48590328/138441848-1113bfb4-df47-4c94-8531-1c53552f1bf4.png">
-
-
-## Our Tech Stack
-
-<img width="500" alt="image" src="https://user-images.githubusercontent.com/48590328/138437524-69e3e7d2-3e40-4457-a78c-7f9e965d843d.png">
-
+<img width="700" alt="image" src="https://user-images.githubusercontent.com/48590328/138441848-1113bfb4-df47-4c94-8531-1c53552f1bf4.png">
 
 ## Functionality
 
@@ -84,3 +78,7 @@ The user is directed to registration if they are not logged in and try to access
  
 ### Admin
 Admin (created through Django's `python3 manage.py createsuperuser`) has access to a platform where they have CRUD privileges for all of the above as well as seeing important metrics (such as how many users, cards, card listings, etc. there are). They can log in by going to `localhost:8000/admin`.
+
+## Our Tech Stack
+
+<img width="500" alt="image" src="https://user-images.githubusercontent.com/48590328/138437524-69e3e7d2-3e40-4457-a78c-7f9e965d843d.png">
