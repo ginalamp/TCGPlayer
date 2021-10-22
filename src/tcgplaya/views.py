@@ -24,11 +24,9 @@ def card_view(request, id):
 def cardlistings_view(request):
     context = {}
     listings = CardListing.objects.all()
-    # values = listings.values('id', 'name')
     context = dict(
         listings=listings
     )
-    # context['listings'] = listings
 
     return render(request, 'tcgplaya/cardlistings.html', context)
 
@@ -88,14 +86,13 @@ def ajax_cart_request(request):
         if request.user:
             # add and remove from cart, delete listing
             if request.POST.get('add_cart'):
+                print("adding cardlisting")
                 in_cart = 'yes'
                 profile.cart.add(listing)
-                # return redirect('/cart/')
             elif request.POST.get('remove_cart'):
                 print("removing cardlisting")
                 in_cart = 'no'
                 profile.cart.remove(listing)
-                # return redirect('/cart/')
             elif request.POST.get('delete_listing'):
                 print("deleting listing")
                 listing.delete()
@@ -123,7 +120,7 @@ def new_cardlisting_view(request, id):
         card = Card.objects.get(id=id)
         seller_profile = Profile.objects.get(user = request.user)
         print(seller_profile)
-        if listing_price is not None:
+        if listing_price:
             cardlisting = CardListing.objects.create(
                 card=card,
                 seller=seller_profile,
@@ -131,6 +128,9 @@ def new_cardlisting_view(request, id):
             )
             print("new cardlisting created: ", cardlisting)
             return redirect(f'/cards/card/{id}')
+        else:
+            print("New cardlisting not created")
+
 
         context = {
             'card': card,

@@ -200,6 +200,7 @@
             setTimeout(() => {
                 $('#removeListingToast').css('display', 'none');
             }, 10000);
+            // always redirect to the user's listings
             window.location.href = '/cards/my-listings/'
         }).fail(function() {
             // Display Toast
@@ -210,6 +211,8 @@
             setTimeout(() => {
                 $('#errorToast').css('display', 'none');
             }, 10000);
+            // always redirect to the user's listings
+            window.location.href = '/cards/my-listings/'
         });
     });
 </script>
