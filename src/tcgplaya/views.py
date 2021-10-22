@@ -43,7 +43,11 @@ def cardlisting_view(request, id):
         if cart_listing.id == id:
             in_cart = False
             break
-
+    
+    # check if user is the seller of the cardlisting
+    seller = False
+    if profile == listing.seller:
+        seller = True
     if request.method == "POST":
         # add and remove from cart, delete listing
         if request.POST.get('add_cart'):
@@ -58,7 +62,8 @@ def cardlisting_view(request, id):
             listing.delete()
     context = {
         'listing': listing,
-        'in_cart': in_cart
+        'in_cart': in_cart,
+        'seller': seller,
     }
 
     return render(request, 'tcgplaya/cardlisting.html', context)
