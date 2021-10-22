@@ -33,13 +33,13 @@
                                     <span class="font-weight-light my-4 info-header" style="font-size: 1.2rem;">Card Information</span>
                                 </div>
                                 <div class="card-body">
-                                    {% if card.flavor_text or card.rarity or card.card_set%}
+                                    {% if card.oracle_text or card.rarity or card.card_set%}
                                     <div>
                                         {% comment %} card details {% endcomment %}
-                                        {% if card.flavor_text %}
-                                        <p><strong>Flavour text: </strong>{{ card.flavor_text }}</p>
+                                        {% if card.oracle_text %}
+                                        <p><strong>Oracle text: </strong>{{ card.oracle_text }}</p>
                                         {% else %}
-                                        <p><strong>Flavour text: </strong>No flavour text available for this card.</p>
+                                        <p><strong>Oracle text: </strong>No oracle text available for this card.</p>
                                         {% endif %}
                                     </div>
                                     <div>
@@ -71,6 +71,10 @@
                                 </div>
                                 <div class="collapse" id="collapseExample">
                                     <div class="card card-body">
+                                        {% if card.flavor_text %}
+                                        <p><strong>Flavour text: </strong>{{ card.flavor_text }}</p>
+                                        {% endif %}
+
                                         {% if card.released_at %}
                                         <p><strong>Release Date: </strong>{{ card.released_at }}</p>
                                         {% endif %}
