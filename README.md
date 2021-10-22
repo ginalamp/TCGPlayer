@@ -1,5 +1,43 @@
 # GET MTG
-TCGPlayer is, in part, an online store for the resale of trading card game (TCG) cards. This project involved creating a beta store for TCGPlayer whereby sellers can upload cards to sell, and buyers can buy cards. We rebranded the store to "GET MTG", as the project uses data from the TCG brand "Magic: The Gathering" (MTG).
+TCGPlayer is, in part, an online store for the resale of trading card game (TCG) cards. This project involved creating a beta store for TCGPlayer whereby sellers can upload cards to sell, and buyers can buy cards. We rebranded the store to "GET MTG", as the project uses data from the TCG brand "Magic: The Gathering" (MTG), and our founding members are Gina, Emma, and Tristan.
+
+## Group members
+* Gina Lamprecht (21773513)
+* Emma Raaff (21861234)
+* Tristan Luyt (21670897)
+## Usage
+### Set up virtual environment & requirements
+
+```
+python3 -m virtualenv env
+source env/bin/activate
+pip3 install -r requirements.txt
+```
+
+### Set up database
+Before completing the next steps, unzip the `all-cards-20211014091110-sample.zip` file in `src/`.
+
+Then migrate the models.
+```
+cd src
+python3 manage.py makemigrations
+python3 manage.py migrate
+python3 manage.py shell
+```
+Import the data to the database in your python shell.
+```python
+from tcgplaya import utils
+utils.parse_bulk_data("all-cards-20211014091110-sample.json")
+```
+
+### Run server
+Exit the shell and then run the server.
+
+```
+python3 manage.py runserver
+```
+
+
 ## Our Tech Stack
 * Django
 * Python
