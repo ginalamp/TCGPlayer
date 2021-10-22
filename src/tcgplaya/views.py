@@ -122,3 +122,16 @@ def cardlistings_searched(request):
         
     return render(request, 'tcgplaya/cardlistings_searched.html', {})
 
+# user's own listings view
+def my_listings_view(request):
+    profile = Profile.objects.get(user = request.user)
+    # get user's saved card listings
+    my_listings = []
+    listings = CardListing.objects.all()
+    for listing in listings:
+        if listing.seller == profile:
+            my_listings.append(listing)
+    context = {
+        'listings': my_listings
+    }
+    return render(request, 'tcgplaya/my_listings.html', context)

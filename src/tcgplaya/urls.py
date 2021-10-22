@@ -8,5 +8,6 @@ urlpatterns = [
     path('cardlistings/', views.cardlistings_view),
     path('cardlisting/<int:id>', views.cardlisting_view),
     path('new-cardlisting/<int:id>', views.new_cardlisting_view),    
-    path('cardlistings_searched/', views.cardlistings_searched)
+    path('cardlistings_searched/', views.cardlistings_searched),
+    path('my-listings/', views.my_listings_view)
 ]
