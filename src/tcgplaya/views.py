@@ -32,16 +32,20 @@ def cardlistings_view(request):
 
 # a single cardlisting for a card
 def cardlisting_view(request, id):
-    context = {}
     listing = CardListing.objects.get(id=id)
-    context = dict(
-        listing=listing
-    )
+    profile = Profile.objects.get(user = request.user)
 
-    # add and remove from card
+    # check if cardlisting in cart
+    in_cart = True
+    cart = profile.cart.all()
+    for cart_listing in cart:
+        print(cart_listing)
+        if cart_listing.id == id:
+            in_cart = False
+            break
+
     if request.method == "POST":
-        profile = Profile.objects.get(user = request.user)
-
+        # add and remove from cart, delete listing
         if request.POST.get('add_cart'):
             profile.cart.add(listing)
             return redirect('/cart/')
@@ -52,7 +56,10 @@ def cardlisting_view(request, id):
         elif request.POST.get('delete_listing'):
             print("deleting listing")
             listing.delete()
-            return redirect('/cards/cardlistings/')
+    context = {
+        'listing': listing,
+        'in_cart': in_cart
+    }
 
     return render(request, 'tcgplaya/cardlisting.html', context)
 
