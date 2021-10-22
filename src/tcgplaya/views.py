@@ -1,5 +1,7 @@
+from django.http.response import JsonResponse
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 
 from .models import *
 from django.contrib.auth.models import User
@@ -50,17 +52,50 @@ def cardlisting_view(request, id):
         if profile == listing.seller:
             seller = True
             in_cart = 'seller'
+
+    context = {
+        'listing': listing,
+        'in_cart': in_cart,
+        'seller': seller,
+        'user': request.user,
+    }
+
+    return render(request, 'tcgplaya/cardlisting.html', context)
+
+@csrf_exempt
+def ajax_cart_request(request):
+    id = request.POST.get('id')
+    listing = CardListing.objects.get(id=id)
+    in_cart = 'no'
+    if request.user:
+        # redirect user to register page if not logged in
+        profile = Profile.objects.get(user = request.user)
+
+        # check if cardlisting in cart
+        cart = profile.cart.all()
+        for cart_listing in cart:
+            print(cart_listing)
+            if cart_listing.id == id:
+                in_cart = 'yes'
+                break
+        
+        # check if user is the seller of the cardlisting
+        if profile == listing.seller:
+            seller = True
+            in_cart = 'seller'
     
     if request.method == "POST":
-        if request.user.username:
+        if request.user:
             # add and remove from cart, delete listing
             if request.POST.get('add_cart'):
+                in_cart = 'yes'
                 profile.cart.add(listing)
-                return redirect('/cart/')
+                # return redirect('/cart/')
             elif request.POST.get('remove_cart'):
                 print("removing cardlisting")
+                in_cart = 'no'
                 profile.cart.remove(listing)
-                return redirect('/cart/')
+                # return redirect('/cart/')
             elif request.POST.get('delete_listing'):
                 print("deleting listing")
                 listing.delete()
@@ -69,12 +104,10 @@ def cardlisting_view(request, id):
             return redirect('/register/')
 
     context = {
-        'listing': listing,
         'in_cart': in_cart,
-        'seller': seller,
     }
-
-    return render(request, 'tcgplaya/cardlisting.html', context)
+    print(context)
+    return JsonResponse(context)
 
 # create a new cardlisting from a given card
 def new_cardlisting_view(request, id):

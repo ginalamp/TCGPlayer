@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from tcgplaya.views import ajax_cart_request
 from pages.views import ChangePasswordView
 from django.conf.urls import include, url
 
@@ -16,4 +17,5 @@ urlpatterns = [
     path('change-password/', ChangePasswordView.as_view(), name='change_password'),
     path('home_searched/', views.home_searched, name = 'home-searched'),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('add_to_cart', ajax_cart_request)
 ]

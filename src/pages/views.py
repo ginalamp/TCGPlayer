@@ -42,6 +42,7 @@ def register_view(request):
             form = CreateUserForm() # makes form blank after saving
             return redirect("/login/")
         else:
+            print(form.errors)
             print('invalid form')
     
     context = {'form':form}
@@ -50,8 +51,12 @@ def register_view(request):
 # login page
 def login_view(request):
     form = LoginForm()
+    form.error_msg = ''
     username = request.POST.get('username')
     password = request.POST.get('password')
+    if username is None or password is None:
+        context = {'form':form}
+        return render(request, 'login.html', context)
     print(username)
     print(password)
     user = authenticate(username=username, password=password)
@@ -59,6 +64,7 @@ def login_view(request):
         login(request, user)
         return redirect("/home/")
     else:
+        form.error_msg = 'Username and Password do not match.'
         print('who u')
     
     context = {'form':form}
@@ -78,7 +84,8 @@ def cart_view(request):
     return render(request, 'cart.html', context)
 
 # profile
-def profile_view(request):
+def profile_view(request, ):
+    print(request.POST.get('showPassChangeToast'))
     if not request.user.username:
         # redirect user to register page if not logged in
         return redirect('/register/')
@@ -106,6 +113,7 @@ def profile_view(request):
                 print('User form or profile form not valid')
                 user_form = UpdateUserForm(instance=request.user)
                 profile_form = UpdateProfileForm(instance=request.user.profile)
+        
         return render(request, 'profile.html', {'profile_form': profile_form})
 
 # change password

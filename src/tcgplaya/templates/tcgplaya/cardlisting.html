@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+<input name="user_value" value="{{ user }}" style="display: none">
 <div class="container">
     <div class="row justify-content-center ">
         <div class="col-lg-10">
@@ -18,35 +19,26 @@
                         {% comment %} big column 1 {% endcomment %}
                         <div class="col">
                             <div class="order-md-first bg-white">
-                                <a href="/cards/card/{{ listing.card.id }}">
+                                <a href="/cards/card/{{ listing.card.id }}" id="{{ listing.id }}" name="main_card">
                                     <img class="img-fluid mx-auto d-block" width="235px" alt="Responsive image"
                                         src="{{ listing.card.img_uri }}">
                                 </a>
                             </div>
                             <br>
                             {% comment %} Add to cart {% endcomment %}
-                            {% if in_cart == 'no' %}
-                            <div class="row add-to-cart-btn">
-                                <form method="POST">{% csrf_token %}
-                                    <button class="btn btn-primary my-2 my-sm-0 " type="submit" id="add-to-cart-btn" value="add_cart" name="add_cart"><i
-                                            class="bi bi-cart-plus" style="font-size: 1rem;"></i> Add to Cart</button>
-                                </form>
+                            <div name="add_cart_div" class="row add-to-cart-btn" style="display: {% if in_cart != 'no' %} none {% endif %}">
+                                <button class="btn btn-primary my-2 my-sm-0 " type="submit" id="add-to-cart-btn" value="add_cart" name="add_cart"><i
+                                        class="bi bi-cart-plus" style="font-size: 1rem;"></i> Add to Cart</button>
                             </div>
-                            {% elif in_cart == 'yes' %}
-                            <div class="row add-to-cart-btn">
-                                <form method="POST">{% csrf_token %}
-                                    <button class="btn btn-danger my-2 my-sm-0 " type="submit" id="add-to-cart-btn" value="remove_cart" name="remove_cart"><i
-                                            class="bi bi-trash" style="font-size: 1rem;"></i> Remove from Cart</button>
-                                </form>
+                            <div name="remove_cart_div" class="row add-to-cart-btn" style="display: {% if in_cart != 'yes' %} none {% endif %}">
+                                <button class="btn btn-danger my-2 my-sm-0 " type="submit" id="add-to-cart-btn" value="remove_cart" name="remove_cart"><i
+                                        class="bi bi-trash" style="font-size: 1rem;"></i> Remove from Cart</button>
                             </div>
-                            {% endif %}
                             {% comment %} Delete cardlisting {% endcomment %}
                             {% if seller %}
-                            <div class="row add-to-cart-btn">
-                                <form method="POST">{% csrf_token %}
-                                    <button class="btn btn-danger my-2 my-sm-0 " type="submit" id="add-to-cart-btn" value="delete_listing" name="delete_listing"><i
-                                            class="bi bi-trash" style="font-size: 1rem;"></i> Delete Listing</button>
-                                </form>
+                            <div name="seller_div" class="row add-to-cart-btn">
+                                <button class="btn btn-danger my-2 my-sm-0 " type="submit" id="add-to-cart-btn" value="delete_listing" name="delete_listing"><i
+                                        class="bi bi-trash" style="font-size: 1rem;"></i> Delete Listing</button>
                             </div>
                             {% endif %}
                         </div>
@@ -117,15 +109,107 @@
 </div>
 
 <script>
-    let delay_duration = 10000;
-    $('#add-to-cart-btn').on('click', () => {
-        $('#tmsg').toast({ autohide: false, animation: false });
-        $('#tmsg').toast('show');
-        $('#tmsg').css('display', 'block');
+    let in_cart = "{{ in_cart }}";
+    let base_url = window.location.origin;
 
-        setTimeout(() => {
-            $('#tmsg').css('display', 'none');
-        }, delay_duration);
+    // ADD TO CART
+    $("button[name='add_cart']").on("click", function() {
+        let id = $("a[name='main_card']")[0].id;
+        let user = $("input[name='user_value']")[0].value;
+        $.ajax({
+            'data': {
+                'id': id,
+                'user': user,
+                'add_cart': true,
+            },
+            'type': "POST",
+            'url': `${base_url}/add_to_cart`
+        }).done(function(response) {
+            in_cart = response.in_cart;
+            $("div[name='add_cart_div']")[0].style.display = 'none';
+            $("div[name='remove_cart_div']")[0].style.display = 'flex';
+
+            // Display Toast
+            $('#addCartToast').toast({ autohide: false, animation: false });
+            $('#addCartToast').toast('show');
+            $('#addCartToast').css('display', 'block');
+    
+            setTimeout(() => {
+                $('#addCartToast').css('display', 'none');
+            }, delay_duration);
+        });
+    });
+
+    // REMOVE FROM CART
+    $("button[name='remove_cart']").on("click", function() {
+        let id = $("a[name='main_card']")[0].id;
+        let user = $("input[name='user_value']")[0].value;
+        $.ajax({
+            'data': {
+                'id': id,
+                'user': user,
+                'remove_cart': true,
+            },
+            'type': "POST",
+            'url': `${base_url}/add_to_cart`
+        }).done(function(response) {
+            in_cart = response.in_cart;
+            $("div[name='add_cart_div']")[0].style.display = 'flex';
+            $("div[name='remove_cart_div']")[0].style.display = 'none';
+
+            // Display Toast
+            $('#removeCartToast').toast({ autohide: false, animation: false });
+            $('#removeCartToast').toast('show');
+            $('#removeCartToast').css('display', 'block');
+    
+            setTimeout(() => {
+                $('#removeCartToast').css('display', 'none');
+            }, 10000);
+        }).fail(function() {
+            // Display Toast
+            $('#errorToast').toast({ autohide: false, animation: false });
+            $('#errorToast').toast('show');
+            $('#errorToast').css('display', 'block');
+    
+            setTimeout(() => {
+                $('#errorToast').css('display', 'none');
+            }, 10000);
+        });
+    });
+
+    // DELETE LISTING
+    $("button[name='delete_listing']").on("click", function() {
+        let id = $("a[name='main_card']")[0].id;
+        let user = $("input[name='user_value']")[0].value;
+        $.ajax({
+            'data': {
+                'id': id,
+                'user': user,
+                'delete_listing': true,
+            },
+            'type': "POST",
+            'url': `${base_url}/add_to_cart`
+        }).done(function(response) {
+            $("div[name='seller_div']")[0].style.display = 'none';
+
+            // Display Toast
+            $('#removeListingToast').toast({ autohide: false, animation: false });
+            $('#removeListingToast').toast('show');
+            $('#removeListingToast').css('display', 'block');
+    
+            setTimeout(() => {
+                $('#removeListingToast').css('display', 'none');
+            }, 10000);
+        }).fail(function() {
+            // Display Toast
+            $('#errorToast').toast({ autohide: false, animation: false });
+            $('#errorToast').toast('show');
+            $('#errorToast').css('display', 'block');
+    
+            setTimeout(() => {
+                $('#errorToast').css('display', 'none');
+            }, 10000);
+        });
     });
 </script>
 

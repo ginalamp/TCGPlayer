@@ -12,6 +12,13 @@
                         <h1 class="font-weight-light my-4 text-center">Your Profile </h1>
                     </div>
                     <div class="card-body">
+                        <div class="row justify-content-center">
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <span class="text-success">{{ message }}</span>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
                         <form method="post" enctype="multipart/form-data">
                             {% csrf_token %}
                             <div class="form-row">
@@ -22,7 +29,7 @@
                                     </div>
                                     <span></span>
                                     <label class="small mb-1">Email:</label><br>
-                                    {{ profile_form.email }}<br>
+                                    {{ profile_form.email }}
                                     <a href="/change-password/"> Change Password</a>
 
                                     <br><br>

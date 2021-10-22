@@ -3,20 +3,29 @@
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="cool-lg-8">
+        <div class="col-lg-5">
             <div class="card shadow-lg border-0 rounded-lg mt-0 mb-3">
                 <div class="card-header justify-content-center">
                     <h2 class="font-weight-light my-4 text-center">
                         Register
                     </h2>
                 </div>
-                <div class="font-weight-light my-4 text-center">
-                </div>
+                <!-- <div class="font-weight-light my-4 text-center">
+                </div> -->
+                <br>
                 <form method="POST"> {% csrf_token %}
-                    <div class="container">
+                    <div class="container justify-content-center" style="display: flex">
                         <div class="col-md-8 col-md-offset-2">
                             <div class="panel panel-default">
                                 <div class="panel-body">
+                                    {% if form.errors %}
+                                        {% for field in form %}
+                                            {% for error in field.errors %}
+                                                <span class="text-danger"> {{ error }} </span>
+                                                <br>
+                                            {% endfor %}
+                                        {% endfor %}
+                                    {% endif %}
                                     <div class="form-group clearfix">
                                         {{ form.username.label }} {{ form.username }}
                                     </div>
