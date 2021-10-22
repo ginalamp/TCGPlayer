@@ -37,31 +37,50 @@ Exit the shell and then run the server.
 python3 manage.py runserver
 ```
 
+This will direct you to the home page:
+
+<img width="1432" alt="image" src="https://user-images.githubusercontent.com/48590328/138441848-1113bfb4-df47-4c94-8531-1c53552f1bf4.png">
+
 
 ## Our Tech Stack
-* Django
-* Python
-* HTML
-* JavaScript
-* CSS (particularly Bootstrap)
+
+<img width="500" alt="image" src="https://user-images.githubusercontent.com/48590328/138437524-69e3e7d2-3e40-4457-a78c-7f9e965d843d.png">
+
+
 ## Functionality
-A user can register a profile with a username, email and password. From here, they can browse the "Card" page, which provides an extensive collection of MTG cards. From this page, users can select a card to view information about that card. This information includes particularly:
-* Price
-* Brand
-* Rarity
-Additional information includes:
-* Release date
-* Type
-* Popularity ranking
-* Mana cost
-* Converted mana cost (CMC)
-* Power
-* Toughness
 
-A user can upload cards for sale. This is done by clicking on a specific card and adding a listing for that card. The seller sets their desired price, and this price is linked to the rest of the relevant information about that card stored in the database via the administrative system.
+### Login & Registration (user authentication)
+The user is directed to registration if they are not logged in and try to access functionality that is only available to logged in users (Cart, My Listings, Profile, Card - add card listing, Card Listing - add to cart)
 
-If a seller wishes to purchase a particular card, they can navigate to the listings page and contact the seller of the card they would like to purchase. The seller and buyer then communicate off of the GET MTG site to discuss payment arrangements.
+### Cards (home page)
+* view first ~100 cards from the database
+* search for card names (searches entire database and displays any card that contains the searched word)
+* view particular card
+  - view card details (clicking on 'more information' shows additional information other than the oracle text, set, and rarity if available)
+  - view card listings for that card (sorted in ascending order according to price to allow the buyer to pick the cheapest one to add to their cart). When the card listing is clicked, it directs the user to that particular card listing page.
+  - add new card listing. The user can choose the card price (default suggested price is the usd price in the database if there is one).
+   
+### Marketplace
+* view card listings from the database
+* search for card listings (searches entire database and displays any card listing that contains the searched word)
+* view particular card listing
+  - view card listing details (seller information, price, some card information). Clicking on the card directs the user to that individual card page.
+  - add/remove from cart (if the user is not the seller). This toggles based on whether the card listing is already in the user's cart or not. Clicking the button directs the user to their updated cart.
+  - delete card listing (if the user is the seller). Clicking this button directs the user to the Marketplace
+     
+### Cart
+* view card listings that have been added to the user's cart
+* view particular card listing (directs them to the functionality described above)
 
-In order to provide buyers with the best price, card listings for a particular card are sorted from least expensive to most expensive. Users can also purchase multiple cards in one session by adding the cards to a cart.
-
-A basic Business Intelligencec report is also available to users with Administrator privileges, allowing them to access data reporting on important metrics.
+### My Listings
+* view card listings that the user has listed (i.e. for which they are the seller)
+* view particular card listing (directs them to the functionality described above)
+ 
+### Profile
+* view username and email
+* update username and email (updates when the 'Save Changes' button is clicked)
+* change password (enter current and new password)
+* logout (directs to login page)
+ 
+### Admin
+Admin (created through Django's `python3 manage.py createsuperuser`) has access to a platform where they have CRUD privileges for all of the above as well as seeing important metrics (such as how many users, cards, card listings, etc. there are). They can log in by going to `localhost:8000/admin`.
