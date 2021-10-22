@@ -2,6 +2,8 @@
 {% comment %} This is the Card Listing page (with all the card listings) {% endcomment %}
 
 {% block content %}
+<h1>Marketplace</h1>
+{% if listings %}
 <form class="form-inline justify-content-center" method="POST" action="/cards/cardlistings_searched/">
   {% csrf_token %}
   <input class="form-control mr-sm-2" type="search" placeholder="Search Listing..." aria-label="Search"
@@ -35,4 +37,9 @@
     {% endif %}
     {% endfor %}
   </div>
+  {% else %}
+  <div>
+  <h3>Seems like there are no card listings yet... Let's do something about that ;)</h3>
+  </div>
+  {% endif %}
   {% endblock %}

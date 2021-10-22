@@ -59,7 +59,7 @@ def cardlisting_view(request, id):
                 return redirect('/cart/')
             elif request.POST.get('remove_cart'):
                 print("removing cardlisting")
-                profile.cart.filter(id=listing.id).delete()
+                profile.cart.remove(listing)
                 return redirect('/cart/')
             elif request.POST.get('delete_listing'):
                 print("deleting listing")
