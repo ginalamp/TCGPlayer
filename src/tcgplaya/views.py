@@ -20,6 +20,31 @@ def card_view(request, id):
 
     return render(request, 'tcgplaya/card.html', context)
 
+
+# cardlistings page search bar
+def cardlistings_searched(request):
+    if request.method == "POST":
+        searchedL = request.POST['searchedL']
+        listings = CardListing.objects.all()
+
+        # get all listings whose cards contain searched word
+        matched_search_listings = []
+        for listing in listings:
+            if searchedL.lower() in listing.card.name.lower():
+                matched_search_listings.append(listing)
+
+        # return empty dict if no matches found
+        if not matched_search_listings:
+            return render(request, 'tcgplaya/cardlistings_searched.html', {})
+
+        context = {
+            'searchedL': searchedL,
+            'listings': matched_search_listings
+        }
+        return render(request, 'tcgplaya/cardlistings_searched.html', context)
+        
+    return render(request, 'tcgplaya/cardlistings_searched.html', {})
+    
 # multiple cardlistings page
 def cardlistings_view(request):
     context = {}
@@ -111,15 +136,14 @@ def new_cardlisting_view(request, id):
     if not request.user.username:
         # redirect user to register page if not logged in
         return redirect('/register/')
+
     context = {}
-    print(request.user)
     if request.method == "POST":
         listing_price = request.POST.get('listing_price')
-        print("listing price --->", listing_price)
+        print(f"listing price: {listing_price}")
         # create new cardlisting
         card = Card.objects.get(id=id)
         seller_profile = Profile.objects.get(user = request.user)
-        print(seller_profile)
         if listing_price:
             cardlisting = CardListing.objects.create(
                 card=card,
@@ -129,7 +153,7 @@ def new_cardlisting_view(request, id):
             print("new cardlisting created: ", cardlisting)
             return redirect(f'/cards/card/{id}')
         else:
-            print("New cardlisting not created")
+            print("new cardlisting not created")
 
 
         context = {
@@ -139,35 +163,12 @@ def new_cardlisting_view(request, id):
         }
     return render(request, 'tcgplaya/new_cardlisting.html', context)
 
-# functional cardlistings page search bar
-def cardlistings_searched(request):
-    if request.method == "POST":
-        searchedL = request.POST['searchedL']
-        listings = CardListing.objects.all()
-
-        # get all listings whose cards contain searched word
-        matched_search_listings = []
-        for listing in listings:
-            if searchedL.lower() in listing.card.name.lower():
-                matched_search_listings.append(listing)
-
-        # return empty dict if no matches found
-        if not matched_search_listings:
-            return render(request, 'tcgplaya/cardlistings_searched.html', {})
-
-        context = {
-            'searchedL': searchedL,
-            'listings': matched_search_listings
-        }
-        return render(request, 'tcgplaya/cardlistings_searched.html', context)
-        
-    return render(request, 'tcgplaya/cardlistings_searched.html', {})
-
 # user's own listings view
 def my_listings_view(request):
     if not request.user.username:
         # redirect user to register page if not logged in
         return redirect('/register/')
+
     profile = Profile.objects.get(user = request.user)
     # get user's saved card listings
     my_listings = []
