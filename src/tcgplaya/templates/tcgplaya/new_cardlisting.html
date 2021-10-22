@@ -16,7 +16,7 @@
                         class="card-container justify-content-center animate__animated animate__bounceIn animate__fast delay-anim">
                         {% comment %} big column 1 {% endcomment %}
                         <div class="col">
-                            <div class="order-md-first bg-white">
+                            <div class="order-md-first bg-white my-4">
                                 <img class="img-fluid mx-auto d-block" width="300px" alt="Responsive image"
                                     src="{{ card.img_uri }}">
                             </div>
@@ -41,7 +41,7 @@
                                 </div>
                                 
                                 <div class = "extra-text">
-                                    {% if suggested_price %}
+                                    {% if suggest_price %}
                                     Market price is currently ${{ suggest_price }}.
                                     {% else %}
                                     No market price available for this card.

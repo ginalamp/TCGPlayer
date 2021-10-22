@@ -90,7 +90,7 @@ def new_cardlisting_view(request, id):
             )
             print("new cardlisting created: ", cardlisting)
             return redirect(f'/cards/card/{id}')
-
+            
         context = {
             'card': card,
             'suggest_price': card.usd,
