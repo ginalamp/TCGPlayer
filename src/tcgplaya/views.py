@@ -73,6 +73,9 @@ def cardlisting_view(request, id):
 
 # create a new cardlisting from a given card
 def new_cardlisting_view(request, id):
+    if not request.user.username:
+        # redirect user to register page if not logged in
+        return redirect('/register/')
     context = {}
     print(request.user)
     if request.method == "POST":
@@ -90,7 +93,7 @@ def new_cardlisting_view(request, id):
             )
             print("new cardlisting created: ", cardlisting)
             return redirect(f'/cards/card/{id}')
-            
+
         context = {
             'card': card,
             'suggest_price': card.usd,
@@ -124,6 +127,9 @@ def cardlistings_searched(request):
 
 # user's own listings view
 def my_listings_view(request):
+    if not request.user.username:
+        # redirect user to register page if not logged in
+        return redirect('/register/')
     profile = Profile.objects.get(user = request.user)
     # get user's saved card listings
     my_listings = []

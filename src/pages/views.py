@@ -66,6 +66,9 @@ def login_view(request):
 
 # cart page
 def cart_view(request):
+    if not request.user.username:
+        # redirect user to register page if not logged in
+        return redirect('/register/')
     profile = Profile.objects.get(user = request.user)
     # get user's saved card listings
     cart = [ cardlisting for cardlisting in profile.cart.all() ]
