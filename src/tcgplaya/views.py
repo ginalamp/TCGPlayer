@@ -39,7 +39,6 @@ def cardlisting_view(request, id):
         profile = Profile.objects.get(user = request.user)
 
         # check if cardlisting in cart
-        # in_cart = 'no'
         cart = profile.cart.all()
         for cart_listing in cart:
             print(cart_listing)
@@ -48,12 +47,12 @@ def cardlisting_view(request, id):
                 break
         
         # check if user is the seller of the cardlisting
-        # seller = False
         if profile == listing.seller:
             seller = True
             in_cart = 'seller'
-        
-        if request.method == "POST":
+    
+    if request.method == "POST":
+        if request.user.username:
             # add and remove from cart, delete listing
             if request.POST.get('add_cart'):
                 profile.cart.add(listing)
@@ -66,6 +65,9 @@ def cardlisting_view(request, id):
                 print("deleting listing")
                 listing.delete()
                 return redirect('/cards/cardlistings/')
+        else:
+            return redirect('/register/')
+
     context = {
         'listing': listing,
         'in_cart': in_cart,
