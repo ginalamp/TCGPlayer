@@ -5,6 +5,10 @@ TCGPlayer is, in part, an online store for the resale of trading card game (TCG)
 * Gina Lamprecht (21773513)
 * Emma Raaff (21861234)
 * Tristan Luyt (21670897)
+
+## Demo
+Click [here](https://drive.google.com/file/d/1YcBK3_sBxkBAr26zCSs9GfymE5gvsq44/view?usp=sharing) to see a basic demo of the website.
+
 ## Usage
 ### Set up virtual environment & requirements
 
